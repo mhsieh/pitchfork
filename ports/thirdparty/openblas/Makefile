@@ -21,7 +21,7 @@ do-build: do-config
 do-install: do-build pfcheck $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME):
 	@find $(PREFIX) ! -type d > $(_WRKSRC).before.list
-	@$(MAKE) -C $(_WRKSRC) PREFIX=$(STAGING)/$(_NAME) install
+	@$(MAKE) -C $(_WRKSRC) PREFIX=$(STAGING)/$(_NAME) install >& install.log
 	@cd $(STAGING)/$(_NAME) && tar cf - *|tar xf - -C $(PREFIX)
 	@find $(PREFIX) ! -type d > $(_WRKSRC).after.list
 	@diff -u $(_WRKSRC).before.list $(_WRKSRC).after.list | \

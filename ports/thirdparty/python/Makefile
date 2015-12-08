@@ -26,7 +26,7 @@ do-build: do-config
 do-install: do-build pfcheck $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME):
 	@find $(PREFIX) ! -type d > $(_WRKSRC).before.list
-	@make -C $(_WRKSRC) install
+	@make -C $(_WRKSRC) install >& install.log
 	@find $(PREFIX) ! -type d > $(_WRKSRC).after.list
 	@diff -u $(_WRKSRC).before.list $(_WRKSRC).after.list | \
 	grep -v '^++'|awk -F $(PREFIX)/ '/^+/{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)

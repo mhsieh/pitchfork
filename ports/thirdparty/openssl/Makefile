@@ -25,11 +25,11 @@ do-config: do-extract
             -Wa,--noexecstack
 do-build: do-config
 	@test ! Configure -nt Makefile || exit 1
-	@test -e $(PREFIX)/var/pkg/$(_NAME) || $(MAKE) -C $(_WRKSRC)
+	@test -e $(PREFIX)/var/pkg/$(_NAME) || $(MAKE) -C $(_WRKSRC) >& build.log
 do-install: do-build pfcheck $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME):
 	@find $(PREFIX) ! -type d > $(_WRKSRC).before.list
-	@$(MAKE) -C $(_WRKSRC) install
+	@$(MAKE) -C $(_WRKSRC) install >& install.log
 	@cd $(STAGING)/$(_NAME) && tar cf - *|tar xf - -C $(PREFIX)
 	@find $(PREFIX) ! -type d > $(_WRKSRC).after.list
 	@diff -u $(_WRKSRC).before.list $(_WRKSRC).after.list | \
