@@ -37,7 +37,7 @@ $(_WRKSRC)/build/Makefile:
 do-build:
 	$(MAKE) -C $(_WRKSRC)/build
 do-install: | $(PREFIX)/var/pkg/$(_NAME)
-$(PREFIX)/var/pkg/$(_NAME):
+$(PREFIX)/var/pkg/$(_NAME): | $(_WRKSRC)/build/Makefile
 	rm -rf $(STAGING)/$(_NAME)
 	mkdir -p $(STAGING)/$(_NAME)
 	cd $(_WRKSRC) && tar cf - bin lib include | tar xf - -C $(STAGING)/$(_NAME)

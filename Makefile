@@ -328,7 +328,7 @@ htslib:
 seqan:
 	$(MAKE) -j1 -C ports/pacbio/$@ do-install
 pbbam:
-	$(MAKE) -j1 -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ do-install
 pbccs:
 	$(MAKE) -j1 -C ports/pacbio/$@ do-install
 dazzdb:
