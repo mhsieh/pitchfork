@@ -20,8 +20,9 @@ addons:
       - cmake
 cache:
   directories:
-    - $HOME/.ccache
     - $HOME/distfiles
+#    - $HOME/.cache
+#    - $HOME/.ccache
 
 install:
   - bin/travisbuild.sh
