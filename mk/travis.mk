@@ -1,7 +1,7 @@
 PREFIX      = ${HOME}/local
 DISTFILES   = ${HOME}/distfiles
 CCACHE_DIR  = ${HOME}/.ccache
-PIP_CACHE   = ${HOME}/.git
+PIP_CACHE   = ${HOME}/.pip
 WORKDIR     = ${HOME}/workspace
 CC          = gcc-4.9
 CXX         = g++-4.9
