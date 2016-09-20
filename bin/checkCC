@@ -21,7 +21,7 @@ gcc*)
   if $CC -v 2>&1|grep ' version '|grep Apple >& /dev/null; then
       (echo 3.3 && echo $myVersion)|sort -t.    -k1,2|head -1|grep 3.3 >& /dev/null && exit 0
   else
-      (echo 4.8 && echo $myVersion)|sort -t.    -k1,2|head -1|grep 4.8 >& /dev/null && exit 0
+      (echo 4.9 && echo $myVersion)|sort -t.    -k1,2|head -1|grep 4.9 >& /dev/null && exit 0
   fi
   ;;
 clang*)
