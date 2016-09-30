@@ -45,6 +45,7 @@ _startover::
         if [[ $$REPLY =~ ^[Yy]$$ ]]; then \
            set -x; \
            rm -rf $(PREFIX)/* $(PREFIX)/.Python staging/* "$(WORKDIR)"/* ports/*/*/*.log; \
+           rm -f ports/*/*/*cram.xml ports/*/*/*nose.xml; \
            test -d "$(PIP_CACHE)/wheels" && \
 	   find "$(PIP_CACHE)/wheels" -type f ! -name '*none-any.whl' -print -delete || true; \
         fi
