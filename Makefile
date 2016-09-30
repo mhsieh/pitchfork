@@ -86,6 +86,7 @@ cram:             pip
 cycler:           pip
 MarkupSafe:       pip
 tabulate:         pip
+CramUnit:         cram nose xmlbuilder
 
 # Not part of pacbio developers' software collection
 nim:          ccache zlib
@@ -131,7 +132,7 @@ pbalign:          pbcore samtools blasr pbcommand
 ConsensusCore:    numpy boost swig cmake
 GenomicConsensus: pbcore pbcommand numpy h5py ConsensusCore unanimity
 smrtflow:         sbt
-pbtranscript:     scipy networkx pysam pbcore pbcommand pbcoretools pbdagcon
+pbtranscript:     scipy networkx pysam pbcore pbcommand pbcoretools pbdagcon hmmer blasr GenomicConsensus gmap
 pbccs:            unanimity
 unanimity:        h5py boost swig cmake htslib pbbam seqan pbcopper
 pbcopper:         cmake boost zlib
@@ -333,6 +334,8 @@ MarkupSafe:
 	$(MAKE) -j1 -C ports/python/$@ do-install
 tabulate:
 	$(MAKE) -j1 -C ports/python/$@ do-install
+CramUnit:
+	$(MAKE) -j1 -C ports/python/$@ do-install
 
 #
 blasr_libcpp:
@@ -448,6 +451,8 @@ reinstall-%:
 	$(MAKE) -C ports/pacbio/$* do-install
 clean: clean-blasr_libcpp clean-blasr clean-htslib clean-seqan clean-pbbam clean-unanimity clean-dazzdb clean-daligner clean-damasker clean-pbdagcon clean-bam2fastx clean-pbcore clean-pbcommand clean-pbsmrtpipe clean-falcon_kit clean-pbfalcon clean-pypeFLOW clean-ConsensusCore clean-GenomicConsensus clean-pbreports clean-kineticsTools clean-pbalign clean-pbcoretools clean-pblaa clean-pbh5tools clean-pbbarcode clean-ppa clean-Cogent
 distclean: distclean-blasr_libcpp distclean-blasr distclean-htslib distclean-seqan distclean-pbbam distclean-unanimity distclean-dazzdb distclean-daligner distclean-damasker distclean-pbdagcon distclean-bam2fastx distclean-pbcore distclean-pbcommand distclean-pbsmrtpipe distclean-falcon_kit distclean-pbfalcon distclean-pypeFLOW distclean-ConsensusCore distclean-GenomicConsensus distclean-pbreports distclean-kineticsTools distclean-pbalign distclean-pbcoretools distclean-pblaa distclean-pbh5tools distclean-pbbarcode distclean-ppa distclean-Cogent
+test-pbtranscript: pbtranscript CramUnit
+	$(MAKE) -C ports/pacbio/pbtranscript do-test
 
 # extra testing section conflicts with other installation
 samtools-1.3.1:         ccache zlib ncurses
