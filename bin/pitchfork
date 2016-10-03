@@ -107,7 +107,7 @@ def parseargs(args):
                                 description='This will look into the PREFIX directories and list what has been installed.')
 
     sub = subparsers.add_parser('uninstall', help='''remove a previous installed package''')
-    sub.add_argument('--name',
+    sub.add_argument('name',
                      metavar='<package>',
                      type=str,
                      help='The name of the package.')
