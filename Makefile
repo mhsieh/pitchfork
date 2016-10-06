@@ -141,6 +141,7 @@ pblaa:             htslib pbbam seqan unanimity
 ppa:               boost cmake pbbam htslib
 trim_isoseq_polyA: boost cmake
 pysiv2:            fabric requests nose xmlbuilder pbsmrtpipe pbcoretools
+PacBioTestData:    pip
 
 # end of dependencies
 
@@ -438,6 +439,8 @@ bx-python:
 PuLP:
 	$(MAKE) -j1 -C ports/python/$@ do-install
 fasta2bam:
+	$(MAKE) -C ports/pacbio/$@ do-install
+PacBioTestData:
 	$(MAKE) -C ports/pacbio/$@ do-install
 clean-%:
 	$(MAKE) -C ports/pacbio/$* do-clean
