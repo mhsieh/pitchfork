@@ -2,7 +2,7 @@ include ../../../mk/pitchfork.mk
 
 # Local variables
 _NAME   = pytz-$(_VER)
-_VER    = 2015.7
+_VER    = 2015.4
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
 # Local works

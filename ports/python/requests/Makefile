@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 2.9.1
+_VER    = 2.7.0
 _NAME   = requests-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 

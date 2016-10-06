@@ -2,7 +2,7 @@ include ../../../mk/pitchfork.mk
 
 # Local variables
 _NAME   = decorator-$(_VER)
-_VER    = 4.0.6
+_VER    = 3.4.2
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
 # Local works

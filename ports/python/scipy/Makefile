@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 0.17.0
+_VER    = 0.9.0
 _NAME   = scipy-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 LDFLAGS += -shared

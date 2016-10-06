@@ -4,7 +4,7 @@ include ../../../mk/pitchfork.mk
 include ../../../mk/chkfc.mk
 
 # Local variables
-_NAME   = numpy-1.10.2
+_NAME   = numpy-1.9.2
 _URL    = https://pypi.python.org/packages/source/n/numpy
 _FILE   = $(_NAME).tar.gz
 _WRKSRC = $(WORKDIR)/$(_NAME)

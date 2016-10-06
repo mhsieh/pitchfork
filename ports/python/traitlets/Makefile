@@ -2,7 +2,7 @@ include ../../../mk/pitchfork.mk
 
 # Local variables
 _NAME   = traitlets-$(_VER)
-_VER    = 4.1.0
+_VER    = 4.0.0
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
 # Local works

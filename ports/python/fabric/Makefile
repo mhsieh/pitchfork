@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 1.9.1
+_VER    = 1.10.1
 _NAME   = fabric-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 

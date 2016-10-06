@@ -2,7 +2,7 @@ include ../../../mk/pitchfork.mk
 
 # Local variables
 _NAME   = pexpect-$(_VER)
-_VER    = 4.0.1
+_VER    = 3.3
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
 # Local works

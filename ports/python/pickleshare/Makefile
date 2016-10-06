@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 0.6
+_VER    = 0.5
 _NAME   = pickleshare-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 

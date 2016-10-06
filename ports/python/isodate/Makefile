@@ -2,7 +2,7 @@ include ../../../mk/pitchfork.mk
 
 # Local variables
 _NAME   = isodate-$(_VER)
-_VER    = 0.5.4
+_VER    = 0.5.1
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
 # Local works

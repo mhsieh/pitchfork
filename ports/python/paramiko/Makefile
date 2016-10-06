@@ -2,7 +2,7 @@ include ../../../mk/pitchfork.mk
 
 # Local variables
 _NAME   = paramiko-$(_VER)
-_VER    = 1.16.0
+_VER    = 1.15.2
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
 # Local works

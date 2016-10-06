@@ -2,7 +2,7 @@ include ../../../mk/pitchfork.mk
 
 # Local variables
 _NAME   = path.py-$(_VER)
-_VER    = 8.1.2
+_VER    = 8.1
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
 # Local works

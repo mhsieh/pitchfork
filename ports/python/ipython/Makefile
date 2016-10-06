@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 4.0.1
+_VER    = 4.0.0
 _NAME   = ipython-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 

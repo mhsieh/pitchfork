@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 2.5.0
+_VER    = 2.4.0
 _NAME   = h5py-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 

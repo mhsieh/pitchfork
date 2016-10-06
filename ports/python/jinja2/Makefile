@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 2.8
+_VER    = 2.7.3
 _NAME   = jinja2-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 

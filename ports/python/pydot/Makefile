@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 1.0.2
+_VER    = 1.0.28
 _NAME   = pydot-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
