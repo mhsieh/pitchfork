@@ -1,3 +1,4 @@
+RULE?=do-install
 default:
 
 override PFHOME:=${CURDIR}
@@ -160,7 +161,7 @@ world: \
 # rules
 ifeq ($(origin HAVE_CCACHE),undefined)
 ccache:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
 ccache:
 	$(MAKE) -C ports/thirdparty/$@ provided
@@ -173,275 +174,278 @@ tcl: ;
 libpng: ;
 else
 readline:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 ncurses:
 ifeq ($(origin HAVE_NCURSES),undefined)
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
 	$(MAKE) -C ports/thirdparty/$@ provided
 endif
 tcl:
-	$(MAKE) -j1 -C ports/thirdparty/$@ do-install
+	$(MAKE) -j1 -C ports/thirdparty/$@ ${RULE}
 libpng:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 endif
 ifeq ($(origin HAVE_OPENBLAS),undefined)
 openblas:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
 openblas:
 	$(MAKE) -C ports/thirdparty/$@ provided
 endif
 ifeq ($(origin HAVE_ZLIB),undefined)
 zlib:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
 zlib:
 	$(MAKE) -C ports/thirdparty/$@ provided
 endif
 ifeq ($(origin HAVE_HDF5),undefined)
 hdf5:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
 hdf5:
 	$(MAKE) -C ports/thirdparty/$@ provided
 endif
 gtest:
+	# No do-clean rule here.
 	$(MAKE) -C ports/thirdparty/$@ do-install
 gmock:
+	# No do-clean rule here.
 	$(MAKE) -C ports/thirdparty/$@ do-install
 ifeq ($(origin HAVE_BOOST),undefined)
 boost:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
 boost:
 	$(MAKE) -C ports/thirdparty/$@ provided
 endif
 samtools:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 ifeq ($(origin HAVE_CMAKE),undefined)
 cmake:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
 cmake: ;
 endif
 swig:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 hmmer:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 gmap:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 jre:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 sbt:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 
 openssl:
-	$(MAKE) -C ports/thirdparty/libressl do-install
+	$(MAKE) -C ports/thirdparty/libressl ${RULE}
 ifeq ($(origin HAVE_PYTHON),undefined)
 python:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 pip:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 else
 python:
+	# No do-clean rule here.
 	$(MAKE) -j1 -C ports/python/virtualenv do-install
 pip: ;
 endif
 
 numpy:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 cython:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 xmlbuilder:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 jsonschema:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 avro:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 requests:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 iso8601:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 jinja2:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 networkx:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pyparsing:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pydot:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 fabric:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 h5py:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 docopt:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pysam:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 six:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 rdflib:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 rdfextras:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 matplotlib:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 scipy:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 traitlets:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pickleshare:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 appnope:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 decorator:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 gnureadline:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pexpect:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 ipython_genutils:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 path.py:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 ptyprocess:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 simplegeneric:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 paramiko:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 ecdsa:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pycrypto:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 isodate:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 html5lib:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 functools32:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pytz:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 python-dateutil:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 nose:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 cram:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 cycler:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 MarkupSafe:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 tabulate:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 CramUnit:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 
 #
 blasr_libcpp:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 blasr:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 htslib:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 seqan:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbbam:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 dazzdb:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 daligner:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 damasker:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbdagcon:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 bam2fastx:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 #
 pbcore:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbcommand:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbsmrtpipe:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 falcon_kit:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 falcon_polish:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbfalcon:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pypeFLOW:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 ConsensusCore:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 GenomicConsensus:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbreports:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 kineticsTools:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbalign:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbcoretools:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbtranscript:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 unanimity:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbcopper:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 #
 pblaa:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 #
 pbh5tools:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbbarcode:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 ppa:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 Cogent:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 #
 smrtflow:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 trim_isoseq_polyA:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 #
 pysiv2:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 
 # Not part of pacbio developers' software collection
 nim:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 modules:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 mash:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 ssw_lib:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 scikit-image:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pillow:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 dask.array:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 toolz:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 ipython:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 biopython:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 bx-python:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 PuLP:
-	$(MAKE) -j1 -C ports/python/$@ do-install
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 fasta2bam:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 PacBioTestData:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 clean-%:
 	$(MAKE) -C ports/pacbio/$* do-clean
 distclean-%:
@@ -461,15 +465,15 @@ test-pbtranscript: pbtranscript CramUnit
 # extra testing section conflicts with other installation
 samtools-1.3.1:         ccache zlib ncurses
 samtools-1.3.1:
-	$(MAKE) -C ports/thirdparty/$@ do-install
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 # R (experimental)
 Rcpp:   ccache
 pbbamr: Rcpp zlib
 Rcpp:
-	$(MAKE) -C ports/R/$@ do-install
+	$(MAKE) -C ports/R/$@ ${RULE}
 pbbamr:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 pbcommandr:
-	$(MAKE) -C ports/pacbio/$@ do-install
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
 
 .PHONY: ConsensusCore GenomicConsensus MarkupSafe appnope avro biopython blasr boost ccache cmake Cogent cram cycler cython dazzdb daligner damasker decorator default docopt ecdsa fabric gmap gmock gnureadline gtest hmmer htslib ipython isodate jsonschema kineticsTools libpng matplotlib modules ncurses networkx nim nose numpy openblas openssl paramiko pbalign pbbam unanimity pbchimera pbcommand pbcore pbcoretools pbdagcon pbfalcon pblaa pbreports pexpect pickleshare pip ppa ptyprocess pycrypto pydot pyparsing pypeFLOW pysam python pytz pyxb rdfextras rdflib readline requests samtools scipy seqan simplegeneric six swig tcl traitlets world xmlbuilder zlib pbh5tools tabulate pbbarcode
