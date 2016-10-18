@@ -159,10 +159,10 @@ world: \
        reseq-core  pbfalcon  kineticsTools \
        isoseq-core ssw_lib   mash          \
        ipython     cram      nose
-legacy_pbalign: legacy_blasr
+legacy_pbalign: legacy_blasr pbcore samtools pbcommand
 	$(MAKE) -C ports/pacbio/pbalign do-uninstall do-distclean
 	$(MAKE) -C ports/pacbio/pbalign pbalign_VERSION=56782fe18849ba9014508fcaca6bfdfd29e8bd1b ${RULE}
-legacy_blasr:
+legacy_blasr: ccache samtools cmake boost htslib gtest hdf5
 	$(MAKE) -C ports/pacbio/pbbam do-uninstall do-distclean
 	$(MAKE) -C ports/pacbio/blasr do-uninstall do-distclean
 	$(MAKE) -C ports/pacbio/blasr_libcpp do-uninstall do-distclean
