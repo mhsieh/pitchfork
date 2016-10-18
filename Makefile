@@ -124,7 +124,7 @@ pbcommand:        xmlbuilder jsonschema avro requests iso8601 numpy tabulate
 pbsmrtpipe:       pbcommand jinja2 networkx pbcore pbcommand pyparsing pydot jsonschema xmlbuilder requests fabric nose
 falcon_kit:       networkx daligner dazzdb damasker pbdagcon pypeFLOW
 FALCON_unzip:     falcon_kit
-falcon_polish:    falcon_kit blasr GenomicConsensus pbcoretools
+falcon_polish:    falcon_kit blasr GenomicConsensus pbcoretools dextractor
 falcon:           falcon_polish # an alias
 pbfalcon:         falcon_polish pbsmrtpipe #pbreports
 pbreports:        matplotlib cython numpy h5py pysam jsonschema pbcore pbcommand
