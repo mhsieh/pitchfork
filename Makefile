@@ -123,6 +123,7 @@ pbcoretools:      pbcore pbcommand
 pbcommand:        xmlbuilder jsonschema avro requests iso8601 numpy tabulate
 pbsmrtpipe:       pbcommand jinja2 networkx pbcore pbcommand pyparsing pydot jsonschema xmlbuilder requests fabric nose
 falcon_kit:       networkx daligner dazzdb damasker pbdagcon pypeFLOW
+FALCON_unzip:     falcon_kit
 falcon_polish:    falcon_kit blasr GenomicConsensus pbcoretools
 falcon:           falcon_polish # an alias
 pbfalcon:         falcon_polish pbsmrtpipe #pbreports
@@ -157,6 +158,16 @@ world: \
        reseq-core  pbfalcon  kineticsTools \
        isoseq-core ssw_lib   mash          \
        ipython     cram      nose
+legacy_pbalign: legacy_blasr
+	$(MAKE) -C ports/pacbio/pbalign do-uninstall
+	$(MAKE) -C ports/pacbio/pbalign pbalign_VERSION=56782fe18849ba9014508fcaca6bfdfd29e8bd1b ${RULE}
+legacy_blasr:
+	$(MAKE) -C ports/pacbio/pbbam do-uninstall
+	$(MAKE) -C ports/pacbio/blasr do-uninstall
+	$(MAKE) -C ports/pacbio/blasr-libcpp do-uninstall
+	$(MAKE) -C ports/pacbio/pbbam pbbam_VERSION=a1dc0665f6e28dc4babecf8981ae966ac1528a4a ${RULE}
+	$(MAKE) -C ports/pacbio/blasr-libcpp blasr_libcpp_VERSION=3fae61d1834426359e7ffe0786bfcd4da054793a ${RULE}
+	$(MAKE) -C ports/pacbio/blasr blasr_VERSION=994e5fc10c2aee600ff83991d59a30213f89a3d2 ${RULE}
 
 # rules
 ifeq ($(origin HAVE_CCACHE),undefined)
@@ -371,6 +382,8 @@ pbcommand:
 pbsmrtpipe:
 	$(MAKE) -C ports/pacbio/$@ ${RULE}
 falcon_kit:
+	$(MAKE) -C ports/pacbio/$@ ${RULE}
+FALCON_unzip:
 	$(MAKE) -C ports/pacbio/$@ ${RULE}
 falcon_polish:
 	$(MAKE) -C ports/pacbio/$@ ${RULE}
