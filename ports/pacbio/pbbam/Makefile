@@ -45,6 +45,6 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/build clean
 do-distclean:
-	cd $(_WRKSRC) && $(GIT) clean -xdf
+	test -d $(_WRKSRC) && cd $(_WRKSRC) && $(GIT) clean -xdf || true
 do-flush:
 	rm -rf $(_WRKSRC)

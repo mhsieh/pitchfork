@@ -23,6 +23,6 @@ $(PREFIX)/var/pkg/$(_NAME): | do-fetch
 	@echo pip uninstall $(_NAME) > $@
 do-clean:
 do-distclean:
-	cd $(_WRKSRC) && $(GIT) clean -xdf
+	test -d $(_WRKSRC) && cd $(_WRKSRC) && $(GIT) clean -xdf || true
 do-flush:
 	rm -rf $(_WRKSRC)

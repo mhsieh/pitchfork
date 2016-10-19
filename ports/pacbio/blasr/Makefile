@@ -114,6 +114,6 @@ do-clean:
 	rm -rf $(_WRKSRC)/utils/bam2bax/build clean
 	$(MAKE) -C $(_WRKSRC) clean
 do-distclean:
-	cd $(_WRKSRC) && $(GIT) clean -xdf
+	test -d $(_WRKSRC) && cd $(_WRKSRC) && $(GIT) clean -xdf || true
 do-flush:
 	rm -rf $(_WRKSRC)
