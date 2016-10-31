@@ -12,7 +12,6 @@ $(_FILE):
 	$(PFHOME)/bin/pitchfork fetch --url $(_URL)/$@
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
-	$(MD5SUM) -c MD5SUM || exit
 	tar zxf $(_FILE) -C $(WORKDIR)
 do-config: $(_WRKSRC)/unix/config.log
 $(_WRKSRC)/unix/config.log: | do-extract

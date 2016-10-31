@@ -15,7 +15,6 @@ $(_FILE):
 	$(PFHOME)/bin/pitchfork fetch --url $(_URL)/$@
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
-	$(MD5SUM) -c MD5SUM || exit
 	unzip $(_FILE) -d $(WORKDIR)
 do-build: $(_WRKSRC)/bin/nim
 $(_WRKSRC)/bin/nim: | do-extract

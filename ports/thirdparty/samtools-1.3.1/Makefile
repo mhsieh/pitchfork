@@ -9,7 +9,6 @@ _FILE   = $(_NAME).tar.bz2
 # Local works
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
-	$(MD5SUM) -c MD5SUM || exit
 	tar jxf $(_FILE) -C $(WORKDIR)
 ifeq ($(OPSYS),Darwin)
 	cat patch-01 | (cd $(_WRKSRC) && patch -p0)

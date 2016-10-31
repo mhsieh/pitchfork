@@ -14,7 +14,6 @@ export LDFLAGS
 # Local works
 do-extract: | $(_WRKSRC)
 $(_WRKSRC):
-	grep $(_NAME).tar.gz MD5SUM | $(MD5SUM) -c - || exit
 	tar zxf $(_FILE) -C $(WORKDIR)
 do-fetch: | $(_FILE)
 $(_FILE):

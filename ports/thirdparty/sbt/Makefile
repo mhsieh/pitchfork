@@ -9,7 +9,6 @@ _FILE   = sbt-0.13.11.tgz
 # Local works
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
-	$(MD5SUM) -c MD5SUM >& /dev/null || exit
 do-fetch: $(_FILE)
 $(_FILE):
 	$(PFHOME)/bin/pitchfork fetch --url $(_URL)/$@

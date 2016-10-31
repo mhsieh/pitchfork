@@ -18,7 +18,6 @@ endif
 # Local works
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
-	$(MD5SUM) -c MD5SUM >& /dev/null || exit
 do-fetch: $(_FILE)
 $(_FILE):
 	cat $(_FILE).md5 > MD5SUM
