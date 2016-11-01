@@ -15,19 +15,21 @@ ifeq ($(wildcard $($(_NAME)_REPO)),)
 else
 	ln -sfn $($(_NAME)_REPO) $(_WRKSRC)
 endif
-do-build: $(_WRKSRC)/smrt-analysis/target/pack/Makefile $(_WRKSRC)/smrt-server-base/target/pack/Makefile
+do-build: $(_WRKSRC)/smrt-analysis/target/pack/Makefile $(_WRKSRC)/smrt-server-base/target/pack/Makefile $(_WRKSRC)/smrt-server-analysis/target/pack/Makefile
 $(_WRKSRC)/smrt-analysis/target/pack/Makefile: | do-fetch
 	cd $(_WRKSRC) && sbt smrt-analysis/clean smrt-analysis/compile smrt-analysis/pack
 $(_WRKSRC)/smrt-server-base/target/pack/Makefile: | do-fetch
 	cd $(_WRKSRC) && sbt smrt-server-base/clean smrt-server-base/compile smrt-server-base/pack
-#$(_WRKSRC)/smrt-server-analysis/target/pack/Makefile: | do-fetch
-#	cd $(_WRKSRC) && sbt smrt-server-analysis/clean smrt-server-analysis/compile smrt-server-analysis/pack
+$(_WRKSRC)/smrt-server-analysis/target/pack/Makefile: | do-fetch
+	cd $(_WRKSRC) && sbt smrt-server-analysis/clean smrt-server-analysis/compile smrt-server-analysis/pack
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
 	$(MAKE) PREFIX=$(PREFIX) -C $(_WRKSRC)/smrt-analysis/target/pack install
 	$(MAKE) PREFIX=$(PREFIX) -C $(_WRKSRC)/smrt-server-base/target/pack install
+	$(MAKE) PREFIX=$(PREFIX) -C $(_WRKSRC)/smrt-server-analysis/target/pack install
 	cd $(PREFIX) && find smrt-analysis* ! -type d > $@
 	cd $(PREFIX) && find smrt-server-base* ! -type d >> $@
+	cd $(PREFIX) && find smrt-server-analysis* ! -type d >> $@
 	cd $(PREFIX) && \
         find bin/ds-tools \
              bin/fasta-to-reference \
@@ -40,6 +42,8 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
              bin/pbservice \
              bin/smrtflow-example-tool \
              bin/fasta-to-gmap-reference \
+             bin/pbtestkit-service-runner \
+             bin/smrt-db-tool \
         >> $@
 do-clean:
 	rm -rf $(_WRKSRC)/smrt-analysis/target
