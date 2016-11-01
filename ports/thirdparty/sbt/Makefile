@@ -18,7 +18,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	mkdir -p $(STAGING)/$(_NAME)
 	tar zxf $(_FILE) -C $(STAGING)/$(_NAME)/
 	cd $(STAGING)/$(_NAME)/sbt && tar cf - bin/sbt bin/sbt-launch-lib.bash bin/sbt-launch.jar | tar xf - -C $(PREFIX)
-	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+	find $(STAGING)/$(_NAME) ! -type d|grep -v sbt.bat|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
 do-clean:
 	rm -rf $(STAGING)/$(_NAME)
 do-flush:

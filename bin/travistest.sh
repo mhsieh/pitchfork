@@ -14,7 +14,7 @@ dataset -h
 pbalign -h
 pbindex -h
 pbmerge -h
-#pbservice -h
+pbservice -h
 pbsmrtpipe -h
 pbtestkit-runner -h
 pbtools-runner -h
