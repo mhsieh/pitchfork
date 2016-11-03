@@ -14,7 +14,7 @@ FC=`echo $* | awk '{print $1}'`
 
 which $FC || die "[ERROR] $FC is not on your PATH env variable"
 
-# check the c++11 availability
+# currently only check for the existence of a fortran compiler
 case $FC in
 gfortran*)
   myVersion=`reportVersion $FC`
