@@ -188,7 +188,13 @@ def pitchfork(args):
         myargs = vars(args)
         if myargs['name'] is None:
             return
+        if '*' in myargs['name']:
+            return
+        if myargs['name'] == '':
+            return
         mypath = '%s/var/pkg/%s' % (_prefix, myargs['name'])
+        if not os.path.exists(mypath):
+            mypath = glob('%s*' % mypath)[0]
         if os.path.exists(mypath):
             with open(mypath) as f:
                 content = f.readlines()
