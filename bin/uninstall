@@ -19,4 +19,4 @@ fi
 # 1. check PREFIX
 test "${PREFIX}" || die "[ERROR] PREFIX is not set or empty, try PREFIX=foo bin/uninstall"
 
-$(dirname ${0})/pitchfork uninstall --name $@
+$(dirname ${0})/pitchfork uninstall $@
