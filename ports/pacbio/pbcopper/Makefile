@@ -32,7 +32,7 @@ do-build:
 	cd $(_WRKSRC)/_build && $(MAKE)
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
-	rsync -ax $(_WRKSRC)/lib/libpbcopper.a $(PREFIX)/lib/
+	rsync -ax $(_WRKSRC)/_build/lib/libpbcopper.a $(PREFIX)/lib/
 	rsync -ax $(_WRKSRC)/include/pbcopper  $(PREFIX)/include/
 	@echo lib/libpbcopper.a > $@ 
 	@cd $(PREFIX) && find include/pbcopper -type f >> $@
