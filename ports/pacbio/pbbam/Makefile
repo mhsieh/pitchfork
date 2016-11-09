@@ -40,11 +40,16 @@ do-build:
 	$(MAKE) -C $(_WRKSRC)/build
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
-	cd $(_WRKSRC) && tar cf - bin lib include | tar xf - -C $(PREFIX)
-	cd $(_WRKSRC) && find bin lib include ! -type d > $@
+	mkdir -p $(STAGING)/$(_NAME)
+	cd $(_WRKSRC)/build && tar cf - bin lib | tar xf - -C $(STAGING)/$(_NAME)
+	cd $(_WRKSRC) && tar cf - include | tar xf - -C $(STAGING)/$(_NAME)
+	cd $(STAGING)/$(_NAME) && tar cf - bin lib include | tar xf - -C $(PREFIX)
+	cd $(STAGING)/$(_NAME) && find bin lib include ! -type d > $@
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/build clean
 do-distclean:
 	test -d $(_WRKSRC) && cd $(_WRKSRC) && $(GIT) clean -xdf || true
+	rm -rf $(STAGING)/$(_NAME)
 do-flush:
 	rm -rf $(_WRKSRC)
+	rm -rf $(STAGING)/$(_NAME)
