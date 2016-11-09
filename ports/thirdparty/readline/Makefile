@@ -24,7 +24,7 @@ $(_WRKSRC)/config.log: | do-extract
         config.log || $(PFHOME)/bin/diewith condig.log
 do-build: $(_WRKSRC)/libreadline.$(DYLIB)
 $(_WRKSRC)/libreadline.$(DYLIB): | do-config
-	$(MAKE) make SHLIB_LIBS=$(PREFIX)/lib/libncurses.$(DYLIB) -C $(_WRKSRC) >& build.log || $(PFHOME)/bin/diewith build.log
+	$(MAKE) SHLIB_LIBS=$(PREFIX)/lib/libncurses.$(DYLIB) -C $(_WRKSRC) >& build.log || $(PFHOME)/bin/diewith build.log
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
 	rm -rf $(STAGING)/$(_NAME)
