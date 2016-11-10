@@ -16,15 +16,15 @@ which $FC || die "[ERROR] $FC is not on your PATH env variable"
 
 # currently only check for the existence of a fortran compiler
 case $FC in
-gfortran*)
+gfortran* | */gfortran*)
   myVersion=`reportVersion $FC`
   exit 0
   ;;
-g95*)
+g95* | */g95*)
   myVersion=`reportVersion $FC|sed -n -e 's/.*(//;s/).*//;s/!//;s/g95//;s/ //g;1p'`
   exit 0
   ;;
-ifort*)
+ifort* | */ifort*)
   myVersion=`reportVersion $FC`
   exit 0
 *)

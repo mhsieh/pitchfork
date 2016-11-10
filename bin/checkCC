@@ -16,22 +16,22 @@ which $CC >& /dev/null || die "[ERROR] $CC is not on your PATH env variable"
 
 # check the c++11 availability
 case $CC in
-gcc*)
+gcc* | */gcc*)
   myVersion=`reportVersion $CC`
   if $CC -v 2>&1|grep ' version '|grep Apple >& /dev/null; then
-      (echo 3.3 && echo $myVersion)|sort -t.    -k1,2|head -1|grep 3.3 >& /dev/null && exit 0
+      (echo 3.3 && echo $myVersion)|sort -t. -k1,2|head -1|grep 3.3 >& /dev/null && exit 0
       die "[ERROR] Apple gcc (clang) version needs to be newer than or equal to 3.3"
   else
-      (echo 4.9 && echo $myVersion)|sort -t.    -k1,2|head -1|grep 4.9 >& /dev/null && exit 0
+      (echo 4.9 && echo $myVersion)|sort -t. -k1,2|head -1|grep 4.9 >& /dev/null && exit 0
       die "[ERROR] gcc version needs to be newer than or equal to 4.9"
   fi
   ;;
-clang*)
+clang* | */clang*)
   myVersion=`reportVersion $CC`
   (echo 3.3 && echo $myVersion)|sort -t. -k1,2|head -1|grep 3.3 >& /dev/null && exit 0
   die "[ERROR] Apple gcc version needs to be newer than or equal to 3.3"
   ;;
-icc*)
+icc* | */icc*)
   myVersion=`reportVersion $CC`
   (echo 11.0.0 && echo $myVersion)|sort -t. -k1,2|head -1|grep 11.0.0 >& /dev/null && exit 0
   die "[ERROR] intel compiler version needs to be newer than or equal to 11.0.0"
