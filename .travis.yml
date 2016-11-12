@@ -3,7 +3,7 @@
 
 language: cpp
 
-sudo: false
+sudo: true
 
 addons:
   apt:
