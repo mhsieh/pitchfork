@@ -38,7 +38,11 @@ _OPENBLAS=$(HAVE_OPENBLAS)
 provided:
 	rm -rf $(STAGING)/$(_NAME)
 	mkdir -p $(STAGING)/$(_NAME)/lib
+ifeq ($(wildcard $($(_OPENBLAS)/libopenblas*)),)
 	rsync -avx $(_OPENBLAS)/lib/libopenblas*      $(STAGING)/$(_NAME)/lib/
+else
+	rsync -avx $(_OPENBLAS)/libopenblas*          $(STAGING)/$(_NAME)/lib/
+endif
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)
 endif
