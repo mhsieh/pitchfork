@@ -9,5 +9,6 @@ FC          = gfortran-4.9
 HAVE_PYTHON =
 HAVE_CMAKE  =
 HAVE_HDF5   = ${HOME}/hdf5-1.8.13-linux-x86_64-shared
+HAVE_OPENBLAS = /usr/lib/openblas-base
 #VERBOSE     = 1
 #export VERBOSE
