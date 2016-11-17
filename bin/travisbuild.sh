@@ -8,4 +8,4 @@ cat mk/travis.mk > settings.mk
 make init
 make -l 2 reseq-core
 make -l 2 pbfalcon
-make -l 2 smrtflow
+#make -l 2 smrtflow
