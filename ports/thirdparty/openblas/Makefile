@@ -38,7 +38,7 @@ _OPENBLAS=$(HAVE_OPENBLAS)
 provided:
 	rm -rf $(STAGING)/$(_NAME)
 	mkdir -p $(STAGING)/$(_NAME)/lib
-ifeq ($(wildcard $($(_OPENBLAS)/libopenblas*)),)
+ifeq ($(wildcard $(_OPENBLAS)/libopenblas*),)
 	rsync -avx $(_OPENBLAS)/lib/libopenblas*      $(STAGING)/$(_NAME)/lib/
 else
 	rsync -avx $(_OPENBLAS)/libopenblas*          $(STAGING)/$(_NAME)/lib/
