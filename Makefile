@@ -479,8 +479,8 @@ test-pbtranscript: pbtranscript CramUnit
 	$(MAKE) -C ports/pacbio/pbtranscript do-test
 
 # extra testing section conflicts with other installation
-samtools-1.3.1:         ccache zlib ncurses
-samtools-1.3.1:
+samtools-0.1.20:         ccache zlib ncurses
+samtools-0.1.20:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 # R (experimental)
 Rcpp:   ccache
