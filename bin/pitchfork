@@ -3,10 +3,7 @@ import sys
 import os
 from glob import glob
 import subprocess
-if sys.version_info[0] == 2 and sys.version_info[0] == 6:
-    import _argparse as argparse
-else:
-    import argparse
+import _argparse as argparse
 
 __VERSION__ = '0.0.2'
 _whatami  = os.path.basename(sys.argv[0])
