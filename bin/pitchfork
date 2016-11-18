@@ -202,6 +202,8 @@ def pitchfork(args):
                 print '%s/bin/pip uninstall -y %s' % (_prefix, content[0].strip().split(' ')[-1])
                 backticks('%s/bin/pip uninstall -y %s' % (_prefix, content[0].strip().split(' ')[-1]))
             for myfile in content:
+                if myfile[0] == '#':
+                    continue
                 myfile = '%s/%s' % (_prefix, myfile.strip())
                 if os.path.isfile(myfile) or os.path.islink(myfile):
                     print 'rm -f %s' % myfile
@@ -210,6 +212,8 @@ def pitchfork(args):
                     except:
                         pass
             for myfile in content:
+                if myfile[0] == '#':
+                    continue
                 myfile = '%s/%s' % (_prefix, myfile.strip())
                 if os.path.isdir(myfile):
                     print 'rmdir %s||true' % myfile
