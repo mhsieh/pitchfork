@@ -5,6 +5,7 @@ _NAME             = htslib
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= ea846607f3ca7f49b3fb43df76f572d3f47cc6bb
+$(_REVISION)     := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'\$$\$$ORIGIN/../lib'
 export LDFLAGS

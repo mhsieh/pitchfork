@@ -5,6 +5,7 @@ _NAME             = dextractor
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/DEXTRACTOR
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
+$(_REVISION)     := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
 
 # Local works
 do-fetch: $(_WRKSRC)

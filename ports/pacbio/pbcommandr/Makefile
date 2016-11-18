@@ -12,6 +12,7 @@ ifneq ($(origin HAVE_R),undefined)
 else
   R_LIBS         := $(PREFIX)/lib/R/library:$(shell $(R)      --slave --vanilla -e 'cat(.Library)')
 endif
+$(_REVISION)     := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
 
 # Local works
 do-extract:
