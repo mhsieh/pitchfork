@@ -12,7 +12,7 @@ ifneq ($(origin HAVE_R),undefined)
 else
   R_LIBS         := $(PREFIX)/lib/R/library:$(shell $(R)      --slave --vanilla -e 'cat(.Library)')
 endif
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-extract:
@@ -49,6 +49,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-fetch do-config
              lib/R/library/pryr \
              lib/R/library/uuid \
              lib/R/library/$(_NAME) > $@
+	@echo "# $(_REVISION)" >> $@ 
 do-distclean:
 	cd $(_WRKSRC) && $(GIT) clean -xdf
 do-flush:

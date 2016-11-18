@@ -8,7 +8,7 @@ _NAME             = trim_isoseq_polyA
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-fetch: $(_WRKSRC)
@@ -35,6 +35,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	rsync -ax $(_WRKSRC)/bin/ $(PREFIX)/bin/
 	rsync -ax $(_WRKSRC)/lib/ $(PREFIX)/lib/
 	cd $(_WRKSRC) && find bin lib > $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/_build clean
 do-distclean:

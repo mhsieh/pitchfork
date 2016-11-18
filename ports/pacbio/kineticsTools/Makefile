@@ -5,7 +5,7 @@ _NAME             = kineticsTools
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-fetch: $(_WRKSRC)
@@ -25,6 +25,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-fetch
 	install -m 755 $(_WRKSRC)/bin/copyIpdSummaryDataset.py $(PREFIX)/bin/
 	install -m 755 $(_WRKSRC)/bin/writeSummaryToCmp.py $(PREFIX)/bin/
 	@echo pip uninstall $(_NAME) > $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 do-distclean:
 	cd $(_WRKSRC) && $(GIT) clean -xdf

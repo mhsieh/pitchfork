@@ -5,7 +5,7 @@ _NAME             = pbdagcon
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 export CC
 export CXX
@@ -50,6 +50,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
         find bin/pbdagcon \
              bin/dazcon   \
         > $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/build clean
 do-distclean:

@@ -5,7 +5,7 @@ _NAME             = dazzdb
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/DAZZ_DB
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-fetch: $(_WRKSRC)
@@ -30,6 +30,7 @@ do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
 	$(MAKE) -C $(_WRKSRC)/build ${INSTALL_RULE}
 	touch $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/build clean
 do-distclean:

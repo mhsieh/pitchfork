@@ -5,7 +5,7 @@ _NAME             = ConsensusCore
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-fetch: $(_WRKSRC)
@@ -35,6 +35,7 @@ do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
 	$(PIP) install --no-deps --install-option="--swig=$(PREFIX)/bin/swig" --install-option="--swig-lib=$(PREFIX)/share/swig/3.0.8" --install-option="--boost=$(BOOST_ROOT)/include" $(DEVOPT) $(_WRKSRC)/
 	@echo pip uninstall $(_NAME) > $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean
 do-distclean:

@@ -5,7 +5,7 @@ _NAME             = htslib
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= ea846607f3ca7f49b3fb43df76f572d3f47cc6bb
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'\$$\$$ORIGIN/../lib'
 export LDFLAGS
@@ -34,6 +34,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	cd $(_WRKSRC) && tar cf - */*.h | tar xf - -C $(PREFIX)/src/htslib/include/
 	cd $(_WRKSRC) && tar cf - *.a   | tar xf - -C $(PREFIX)/src/htslib/lib/
 	cd $(PREFIX)  && find src/htslib ! -type d > $@
+	@echo "# $(_REVISION)" >> $@ 
 #this thing cannot be installed to prefix/lib or it will kill pysam/samtools
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean

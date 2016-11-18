@@ -9,7 +9,7 @@ _NAME             = pblaa
 $(_NAME)_REPO    ?= https://$(GHTOKEN)@github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-fetch: $(_WRKSRC)
@@ -46,6 +46,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	rsync -ax $(_WRKSRC)/bin/ $(PREFIX)/bin/
 	rsync -ax $(_WRKSRC)/include/ $(PREFIX)/include/
 	cd $(_WRKSRC) && find bin include|grep -v '^$$'|sort -r > $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/_build clean
 do-distclean:

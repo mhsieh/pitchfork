@@ -8,7 +8,7 @@ _NAME             = pbcopper
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-fetch: $(_WRKSRC)
@@ -37,6 +37,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	rsync -ax $(_WRKSRC)/include/pbcopper  $(PREFIX)/include/
 	@echo lib/libpbcopper.a > $@ 
 	@cd $(PREFIX) && find include/pbcopper -type f >> $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/_build clean
 do-distclean:

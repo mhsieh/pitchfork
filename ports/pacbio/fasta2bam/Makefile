@@ -8,7 +8,7 @@ _NAME             = fasta2bam
 $(_NAME)_REPO    ?= git://github.com/armintoepfer/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-fetch: $(_WRKSRC)
@@ -41,6 +41,7 @@ do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
 	cd $(_WRKSRC)/build && tar cf - fasta2bam | tar xf - -C $(PREFIX)/bin
 	cd $(PREFIX) && find bin/fasta2bam  > $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/build clean
 do-distclean:

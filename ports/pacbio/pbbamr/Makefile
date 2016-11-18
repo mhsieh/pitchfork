@@ -12,7 +12,7 @@ ifneq ($(origin HAVE_R),undefined)
 else
   R_LIBS         := $(PREFIX)/lib/R/library:$(shell $(R)      --slave --vanilla -e 'cat(.Library)')
 endif
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-extract:
@@ -30,6 +30,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-fetch
 	R_LIBS=$(R_LIBS) ZLIB_ROOT=$(PREFIX) \
             $(R) CMD INSTALL $(_WRKSRC)
 	cd $(PREFIX) && find lib/R/library/$(_NAME) > $@
+	@echo "# $(_REVISION)" >> $@ 
 do-distclean:
 	cd $(_WRKSRC) && $(GIT) clean -xdf
 do-flush:

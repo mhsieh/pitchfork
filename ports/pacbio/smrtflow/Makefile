@@ -5,7 +5,7 @@ _NAME             = smrtflow
 $(_NAME)_REPO    ?= git://github.com/PacificBiosciences/$(_NAME)
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
-_REVISION      := $(shell $(GIT) rev-parse --short $($(_NAME)_VERSION))
+_REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
 do-fetch: $(_WRKSRC)
@@ -46,6 +46,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
              bin/pbtestkit-service-runner \
              bin/smrt-db-tool \
         >> $@
+	@echo "# $(_REVISION)" >> $@ 
 do-clean:
 	rm -rf $(_WRKSRC)/smrt-analysis/target
 do-distclean:
