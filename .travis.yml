@@ -33,6 +33,8 @@ before_cache:
     - find $HOME/.pip/wheels -type f ! -name '*none-any.whl' -print -delete
 #     - find $HOME/.ivy2 -name "ivydata-*.properties" -delete -print
 
+before_install:
+    - sudo apt-get autoremove
 install:
     - rm -rf $HOME/distfiles/swig
     - mkdir -p $HOME/distfiles
