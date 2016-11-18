@@ -7,4 +7,5 @@
 *.tar.bz2
 *.tgz
 *.zip
+/bin/*.pyc
 get-pip.py
