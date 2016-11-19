@@ -132,32 +132,32 @@ def pitchfork(args):
     # log('[INFO] args:', args)
     if args.subcommand == 'configure':
         myargs = vars(args)
-        if myargs['prefix'] is not None:
+        if myargs['prefix']:
             print "PREFIX      = %s" % myargs['prefix']
-        if myargs['workspace'] is not None:
+        if myargs['workspace']:
             print "WORKDIR     = %s" % myargs['workspace']
-        if myargs['boost'] is not None:
+        if myargs['boost']:
             if len("%s" % myargs['boost']) < 1:
                 print "HAVE_BOOST  ="
             elif len(glob("%s" % myargs['boost'])) < 1:
                 print "HAVE_BOOST  ="
             else:
                 print "HAVE_BOOST  = %s" % os.path.abspath(myargs['boost'])
-        if myargs['ccache'] is not None:
+        if myargs['ccache']:
             if len("%s" % myargs['ccache']) < 1:
                 print "HAVE_CCACHE ="
             elif len(glob("%s" % myargs['ccache'])) < 1:
                 print "HAVE_CCACHE ="
             else:
                 print "HAVE_CCACHE = %s" % os.path.abspath(myargs['ccache'])
-        if myargs['python'] is not None:
+        if myargs['python']:
             if len("%s" % myargs['python']) < 1:
                 print "HAVE_PYTHON ="
             elif len(glob("%s" % myargs['python'])) < 1:
                 print "HAVE_PYTHON ="
             else:
                 print "HAVE_PYTHON = %s" % os.path.abspath(myargs['python'])
-        if myargs['zlib'] is not None:
+        if myargs['zlib']:
             if len("%s" % myargs['zlib']) < 1:
                 print "HAVE_ZLIB   ="
             elif len(glob("%s" % myargs['zlib'])) < 1:
@@ -265,7 +265,7 @@ def pitchfork(args):
         if not os.path.exists('MD5SUM'):
             log('[ERROR] MD5SUM file not found')
             raise Exception()
-        if myargs['url'] is not None:
+        if myargs['url']:
             _url = myargs['url']
             _archive = _url.split('/')[-1]
             _prjname = os.path.basename(os.getcwd())
