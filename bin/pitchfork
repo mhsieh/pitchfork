@@ -113,12 +113,18 @@ def parseargs(args):
                      help='The name of the package.')
 
     sub = subparsers.add_parser('fetch',
-                                help='prints out suggested settings.mk',
-                                description='''What's in your settings.mk?''')
+                                help='download and check file',
+                                description='''this download a file from url and check the MD5 sum.''')
     sub.add_argument('--url',
                      metavar='<url>',
                      type=str,
                      help='The url of distfile.')
+
+    sub = subparsers.add_parser('sconf',
+                                help='show configurations.',
+                                description='''What's in your settings.mk?''')
+    sub.add_argument('--prefix', action='store_true', help='prints out PREFIX value.')
+
     return parser.parse_args()
 
 
@@ -178,6 +184,12 @@ def pitchfork(args):
     else:
         if os.path.exists("%s/deployment" % _projhome):
             _prefix = "%s/deployment" % _projhome
+
+    if args.subcommand == 'sconf':
+        myargs = vars(args)
+        if myargs['prefix']:
+            print _prefix
+        return
 
     if args.subcommand == 'installed':
         for mypkg in glob('%s/var/pkg/*' % _prefix):
@@ -287,6 +299,7 @@ def pitchfork(args):
             return
 
         raise Exception('[ERROR] you need to specify --url')
+
     raise Exception('Unknown subcommand: {!r}'.format(args.subcommand))
 
 

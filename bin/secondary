@@ -1,0 +1,9 @@
+#!/bin/bash
+PREFIX=`python $(dirname ${BASH_SOURCE[0]})/pitchfork sconf --prefix`
+if [ -e $PREFIX/setup-env.sh ]; then
+    . $PREFIX/setup-env.sh
+    $@
+else
+    echo "[ERROR] $PREFIX/setup-env.sh not found"
+    exit 1
+fi
