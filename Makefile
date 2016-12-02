@@ -130,7 +130,7 @@ falcon:           falcon_polish # an alias
 pbfalcon:         falcon_polish pbsmrtpipe #pbreports
 pbreports:        matplotlib cython numpy h5py pysam jsonschema pbcore pbcommand
 kineticsTools:    scipy pbcore pbcommand h5py
-pypeFLOW:         rdflib rdfextras
+pypeFLOW:         networkx
 pbalign:          pbcore samtools blasr pbcommand
 ConsensusCore:    numpy boost swig cmake
 GenomicConsensus: pbcore pbcommand numpy h5py ConsensusCore unanimity
