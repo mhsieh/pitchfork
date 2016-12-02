@@ -16,8 +16,6 @@ $(_WRKSRC):
 ifeq ($(wildcard $($(_NAME)_REPO)),)
 	$(GIT) clone $($(_NAME)_REPO) $@
 	cd $(_WRKSRC) && $(GIT) checkout $($(_NAME)_VERSION)
-	cd $(_WRKSRC) && $(GIT) submodule update --init -- third-party/cpp-optparse
-	cd $(_WRKSRC) && $(GIT) submodule update --init -- third-party/gtest
 else
 	ln -sfn $($(_NAME)_REPO) $(_WRKSRC)
 endif
