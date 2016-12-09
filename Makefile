@@ -74,7 +74,7 @@ pickleshare:      pip
 ptyprocess:       pip
 pycrypto:         pip
 pyparsing:        pip
-pysam:            pip zlib
+pysam:            pip zlib cython
 python-dateutil:  pip
 pytz:             pip
 requests:         pip
@@ -294,7 +294,7 @@ h5py:
 docopt:
 	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pysam:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	$(MAKE) -s -j1 -C ports/python/$@ ${RULE}
 six:
 	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 rdflib:
