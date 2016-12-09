@@ -29,6 +29,7 @@ python:           ccache zlib openssl ncurses readline
 endif
 readline:         ccache ncurses
 samtools:         ccache zlib ncurses
+bamtools:         ccache zlib
 cmake:            ccache zlib
 ncurses:          ccache
 openblas:         ccache
@@ -233,6 +234,8 @@ boost:
 	$(MAKE) -C ports/thirdparty/$@ provided
 endif
 samtools:
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
+bamtools:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 ifeq ($(origin HAVE_CMAKE),undefined)
 cmake:
