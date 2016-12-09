@@ -1,7 +1,7 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_VER    = 0.9.0
+_VER    = 0.9.1.4
 _NAME   = pysam-$(_VER)
 _WRKSRC = $(WORKDIR)/$(_NAME)
 
