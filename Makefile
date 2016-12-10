@@ -115,7 +115,7 @@ dazzdb:       ccache
 daligner:     ccache dazzdb
 damasker:     ccache
 dextractor:   ccache
-pbdagcon:     ccache dazzdb daligner pbbam blasr_libcpp
+pbdagcon:     ccache dazzdb daligner pbbam blasr_libcpp gtest
 bam2fastx:    ccache pbbam htslib zlib boost cmake pbcopper
 #
 pbcore:           pysam h5py

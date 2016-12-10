@@ -38,6 +38,8 @@ $(_WRKSRC)/build/defines.mk: | do-fetch
                  HDF5_LIB=$(HDF5_ROOT)/lib \
              DALIGNER_SRC=$(WORKDIR)/daligner \
               DAZZ_DB_SRC=$(WORKDIR)/dazzdb \
+                GTEST_SRC=$(PREFIX)/src/gtest/src \
+            GTEST_INCLUDE=$(PREFIX)/src/gtest/include \
         ./configure.py --build-dir=$(_WRKSRC)/build
 do-build:
 	$(MAKE) -C $(_WRKSRC)/build
