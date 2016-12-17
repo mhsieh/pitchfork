@@ -245,15 +245,15 @@ else
 cmake: ;
 endif
 swig:
-	$(MAKE) -C ports/thirdparty/$@ ${RULE}
+	$(MAKE) -j1 -C ports/thirdparty/$@ ${RULE}
 hmmer:
-	$(MAKE) -C ports/thirdparty/$@ ${RULE}
+	$(MAKE) -j1 -C ports/thirdparty/$@ ${RULE}
 gmap:
-	$(MAKE) -C ports/thirdparty/$@ ${RULE}
+	$(MAKE) -j1 -C ports/thirdparty/$@ ${RULE}
 jre:
-	$(MAKE) -C ports/thirdparty/$@ ${RULE}
+	$(MAKE) -j1 -C ports/thirdparty/$@ ${RULE}
 sbt:
-	$(MAKE) -C ports/thirdparty/$@ ${RULE}
+	$(MAKE) -j1 -C ports/thirdparty/$@ ${RULE}
 libbzip2:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 
@@ -434,7 +434,7 @@ Cogent:
 smrtflow:
 	$(MAKE) -C ports/pacbio/$@ ${RULE}
 trim_isoseq_polyA:
-	$(MAKE) -C ports/pacbio/$@ ${RULE}
+	$(MAKE) -j1 -C ports/pacbio/$@ ${RULE}
 #
 pysiv2:
 	$(MAKE) -C ports/pacbio/$@ ${RULE}
