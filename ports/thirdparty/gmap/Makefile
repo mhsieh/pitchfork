@@ -1,9 +1,9 @@
 include ../../../mk/pitchfork.mk
 
 # Local variables
-_NAME   = gmap-2016-05-01
+_NAME   = gmap-2016-11-07
 _URL    = http://research-pub.gene.com/gmap/src
-_FILE   = gmap-gsnap-2016-05-01.tar.gz
+_FILE   = gmap-gsnap-2016-11-07.tar.gz
 _WRKSRC = $(WORKDIR)/$(_NAME)
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'$$\$$\$$$$ORIGIN/../lib'
