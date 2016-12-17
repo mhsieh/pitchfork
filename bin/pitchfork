@@ -295,7 +295,7 @@ def pitchfork(args):
                         os.remove(_prefetch)
                     raise
             print "fetching %s" % _url
-            _out, _exit, _err = backticks('curl -L -O %s' % _url, checked=True)
+            _out, _exit, _err = backticks('curl -k -L -O %s' % _url, checked=True)
             _out, _exit, _err = backticks('grep %s MD5SUM | md5sum -c -' % os.path.basename(_prefetch))
             _out, _exit, _err = backticks('cp %s %s/%s' % (_archive, _distfiles, _prjname))
             return
