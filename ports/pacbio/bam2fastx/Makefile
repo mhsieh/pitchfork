@@ -30,6 +30,7 @@ $(_WRKSRC)/build/Makefile: | do-fetch
 	mkdir -p $(_WRKSRC)/build
 	cd $(_WRKSRC)/build \
      && $(CMAKE) \
+              -DBAM2FASTX_build_tests=OFF \
               -DCMAKE_C_COMPILER_LAUNCHER=ccache \
               -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
               -DPacBioBAM_LIBRARIES=$(PREFIX)/lib/libpbbam.$(DYLIB) \
