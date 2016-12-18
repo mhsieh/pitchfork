@@ -25,8 +25,12 @@ $(_WRKSRC)/_build/Makefile: | do-fetch
 	cd $(_WRKSRC)/_build  && \
         $(CMAKE) \
               -DBOOST_ROOT=$(BOOST_ROOT) \
-              -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+              -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_SKIP_BUILD_RPATH=FALSE \
+              -DSUPPORT_COMPRESSED_INPUT=ON \
+              -DZLIB_ROOT=$(PREFIX) \
+              -DBZIP2_LIBRARIES=$(PREFIX)/lib/libbz2.so \
+              -DBZIP2_INCLUDE_DIR=$(PREFIX)/include \
             ..
 do-build:
 	$(MAKE) -C $(_WRKSRC)/_build
