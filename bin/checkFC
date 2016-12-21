@@ -12,7 +12,13 @@ die(){
 
 FC=`echo $* | awk '{print $1}'`
 
-which $FC || die "[ERROR] $FC is not on your PATH env variable"
+if [ -x $FC ]; then
+    : #
+elif which $FC >& /dev/null; then 
+    : #
+else
+    die "[ERROR] $FC is not on your PATH env variable"
+fi
 
 # currently only check for the existence of a fortran compiler
 case $FC in

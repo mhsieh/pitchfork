@@ -12,7 +12,13 @@ die(){
 
 CXX=`echo $* | awk '{print $1}'`
 
-which $CXX >& /dev/null || die "[ERROR] $CXX is not on your PATH env variable"
+if [ -x $CXX ]; then
+    : #
+elif which $CXX >& /dev/null; then 
+    : #
+else
+    die "[ERROR] $CXX is not on your PATH env variable"
+fi
 
 # check the c++11 availability
 case $CXX in

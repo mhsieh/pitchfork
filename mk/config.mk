@@ -24,6 +24,7 @@ WORKDIR    ?= $(PFHOME)/workspace
 PREFIX     ?= $(PFHOME)/deployment
 STAGING    ?= $(PFHOME)/staging
 CCACHE_DIR ?= $(PFHOME)/.git/ccache
+SCCACHE_DIR?= $(PFHOME)/.git/sccache
 PIP_CACHE  ?= $(PFHOME)/.git/pip
 DISTFILES  ?= $(PFHOME)/distfiles
 
@@ -55,6 +56,7 @@ export CFLAGS
 export LDFLAGS
 export CXXFLAGS
 export CCACHE_DIR
+export SCCACHE_DIR
 export PATH              := $(PREFIX)/bin:$(PFHOME)/bin:${PATH}
 export PKG_CONFIG_PATH   := $(PREFIX)/lib/pkgconfig
 
