@@ -1,5 +1,6 @@
 PREFIX      = ${HOME}/local
 DISTFILES   = ${HOME}/distfiles
+USE_CCACHE  = true
 CCACHE_DIR  = ${HOME}/.ccache
 PIP_CACHE   = ${HOME}/.pip
 WORKDIR     = ${HOME}/workspace
