@@ -20,6 +20,9 @@ $(_FILE):
 	$(PFHOME)/bin/pitchfork fetch --url $(_URL)/$@
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-extract
+	$(PYTHON) --version 2>&1 | grep Anaconda \
+        && rsync -aKx $(shell dirname $(PYTHON))/../lib*/libpython* $(PREFIX)/lib/ \
+        || true
 	$(PYTHON) $(_WRKSRC)/virtualenv.py $(PREFIX)
 	rsync -aKx $(shell dirname $(PYTHON))/../lib*/python2.7/pydoc* $(PREFIX)/lib/python2.7/
 	rsync -aKx $(shell dirname $(PYTHON))/../bin/pydoc* $(PREFIX)/bin/
