@@ -34,7 +34,8 @@ do-flush:
 do-distclean: do-flush
 
 ifneq ($(origin HAVE_OPENBLAS),undefined)
-_OPENBLAS=$(HAVE_OPENBLAS)
+_OPENBLAS = $(HAVE_OPENBLAS)
+_NAME     = OpenBLAS
 provided:
 	rm -rf $(STAGING)/$(_NAME)
 	mkdir -p $(STAGING)/$(_NAME)/lib

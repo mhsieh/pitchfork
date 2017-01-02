@@ -38,7 +38,6 @@ do-distclean:
 	rm -f $(_WRKSRC)/config.log config.log
 do-flush:
 	rm -rf $(_WRKSRC) || true
-ifeq ($(origin HAVE_NCURSES),undefined)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
 	rm -rf $(STAGING)/$(_NAME)
 	$(MAKE) -C $(_WRKSRC) prefix=$(STAGING)/$(_NAME) install >& install.log || $(PFHOME)/bin/diewith install.log
@@ -51,8 +50,9 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
         fi
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
-else
-_NCURSES:=$(shell ../../../bin/checkNCURSES $(HAVE_NCURSES))
+ifneq ($(origin HAVE_NCURSES),undefined)
+_NCURSES := $(shell ../../../bin/checkNCURSES $(HAVE_NCURSES))
+_NAME     = ncurses
 provided: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME):
 	rm -rf $(STAGING)/$(_NAME)

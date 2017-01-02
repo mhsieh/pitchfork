@@ -47,6 +47,7 @@ do-flush:
 
 ifneq ($(origin HAVE_HDF5),undefined)
 _HDF5 = $(shell ../../../bin/checkHDF5 $(HAVE_HDF5))
+_NAME = hdf5
 provided:
 	rm -rf $(STAGING)/$(_NAME)
 	mkdir -p $(STAGING)/$(_NAME)/include

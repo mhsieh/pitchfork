@@ -40,6 +40,7 @@ do-flush:
 	rm -rf $(_WRKSRC) || true
 ifneq ($(origin HAVE_ZLIB),undefined)
 _ZLIB = $(shell ../../../bin/checkZLIB $(HAVE_ZLIB))
+_NAME = zlib
 provided:
 	rm -rf $(STAGING)/$(_NAME)
 	mkdir -p $(STAGING)/$(_NAME)/include

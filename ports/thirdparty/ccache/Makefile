@@ -46,6 +46,7 @@ do-flush:
 	rm -rf $(_WRKSRC) || true
 ifneq ($(origin HAVE_CCACHE),undefined)
 _CCACHE = $(shell ../../../bin/checkCCACHE $(HAVE_CCACHE))
+_NAME   = ccache
 provided:
 	rm -rf $(STAGING)/$(_NAME)
 	mkdir -p $(STAGING)/$(_NAME)/bin
