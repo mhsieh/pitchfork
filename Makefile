@@ -244,7 +244,7 @@ ifeq ($(origin HAVE_CMAKE),undefined)
 cmake:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
-ifeq ($(shell test -x $(HAVE_CMAKE) && echo -n yes),yes)
+ifeq ($(shell test -x "$(HAVE_CMAKE)" && echo -n yes),yes)
 CMAKE = $(HAVE_CMAKE)
 endif
 cmake: ;
