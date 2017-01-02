@@ -3,6 +3,7 @@ include ../../../mk/pitchfork.mk
 # Local variables
 _NAME   = zlib-1.2.8
 _URL    = http://zlib.net
+_URL    = https://sourceforge.net/projects/libpng/files/zlib/1.2.8
 _WRKSRC = $(WORKDIR)/$(_NAME)
 _FILE   = $(_NAME).tar.gz
 ifneq ($(OPSYS),Darwin)
