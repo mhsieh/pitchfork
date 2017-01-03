@@ -24,7 +24,7 @@ do-build:
 	$(MAKE) -C $(_WRKSRC) \
                    CC=$(CC) \
             ZLIB_ROOT=$(ZLIB_ROOT) \
-               CFLAGS="$(CFLAGS) -Wall -O2 -Wno-unused-function" \
+               CFLAGS="$(CFLAGS) -Wall -O2 -Wno-unused-function -D_GNU_SOURCE" \
               LDFLAGS="$(LDFLAGS)" \
         >& build.log || $(PFHOME)/bin/diewith build.log
 do-install: $(PREFIX)/var/pkg/$(_NAME)
