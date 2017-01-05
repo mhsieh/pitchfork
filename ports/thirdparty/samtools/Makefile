@@ -20,11 +20,11 @@ $(_FILE):
 do-config: $(_WRKSRC)/config.log
 $(_WRKSRC)/config.log: | do-extract
 	(cd $(_WRKSRC) && \
-         CFLAGS="-I$(_WRKSRC)/htslib-1.3 $(CFLAGS) -D_GNU_SOURCE" ./configure --prefix=$(PREFIX) \
+         CFLAGS="-I$(_WRKSRC)/htslib-1.3 $(CFLAGS)" ./configure --prefix=$(PREFIX) \
                      --with-htslib=$(_WRKSRC)/htslib-1.3.1) >& config.log || $(PFHOME)/bin/diewith config.log
 do-build: $(_WRKSRC)/samtools
 $(_WRKSRC)/samtools: | do-config
-	$(MAKE) CC=$(CC) CFLAGS="-g -Wall -O2 $(CFLAGS) -D_GNU_SOURCE" -C $(_WRKSRC) >& build.log || $(PFHOME)/bin/diewith build.log
+	$(MAKE) CC=$(CC) CFLAGS="-g -Wall -O2 $(CFLAGS)" -C $(_WRKSRC) >& build.log || $(PFHOME)/bin/diewith build.log
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
 	rm -rf $(STAGING)/$(_NAME)

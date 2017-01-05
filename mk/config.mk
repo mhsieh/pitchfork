@@ -45,6 +45,15 @@ CFLAGS    ?= -fPIC -I$(PREFIX)/include
 CXXFLAGS  ?= $(CFLAGS)
 LDFLAGS   ?= -L$(PREFIX)/lib -L$(PREFIX)/lib64
 
+ifneq ($(OPSYS),Darwin)
+ifeq ($(shell echo $(CC)|grep gcc>&/dev/null&&echo yes||true),yes)
+    CFLAGS += -D_GNU_SOURCE
+endif
+ifeq ($(shell echo $(CXX)|grep g++>&/dev/null&&echo yes||true),yes)
+    CXXFLAGS += -D_GNU_SOURCE
+endif
+endif
+
 BOOST_ROOT = $(PREFIX)
 HDF5_ROOT  = $(PREFIX)
 ZLIB_ROOT  = $(PREFIX)

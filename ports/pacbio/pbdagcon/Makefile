@@ -7,8 +7,11 @@ _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION ?= HEAD
 _REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
-export CC
-export CXX
+ifneq ($(OPSYS),Darwin)
+CC  += $(CFLAGS)
+CXX += $(CXXFLAGS)
+endif
+export CC CXX
 
 # Local works
 do-fetch: $(_WRKSRC)
