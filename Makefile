@@ -264,14 +264,13 @@ openssl:
 ifeq ($(origin HAVE_PYTHON),undefined)
 python:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
-pip:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 else
 python:
 	# No do-clean rule here.
 	$(MAKE) -j1 -C ports/python/virtualenv do-install
-pip: ;
 endif
+pip:
+	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 
 numpy:
 	$(MAKE) -j1 -C ports/python/$@ ${RULE}
