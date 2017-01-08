@@ -53,11 +53,11 @@ provided:
 	mkdir -p $(STAGING)/$(_NAME)/include
 	mkdir -p $(STAGING)/$(_NAME)/lib
 	mkdir -p $(STAGING)/$(_NAME)/bin
-	cp -a $(_HDF5)/bin/h5ls     $(STAGING)/$(_NAME)/bin/
-	cp -a $(_HDF5)/bin/h5dump   $(STAGING)/$(_NAME)/bin/
-	cp -a $(_HDF5)/bin/h5repack $(STAGING)/$(_NAME)/bin/
-	cp -a $(_HDF5)/include/H5*.h $(_HDF5)/include/hdf5*.h $(STAGING)/$(_NAME)/include/
-	find $(_HDF5)/lib \( -name 'libhdf5*' -o -name 'libsz.*' \) -exec cp -a {} $(STAGING)/$(_NAME)/lib/ \;
+	cp -aL $(_HDF5)/bin/h5ls     $(STAGING)/$(_NAME)/bin/
+	cp -aL $(_HDF5)/bin/h5dump   $(STAGING)/$(_NAME)/bin/
+	cp -aL $(_HDF5)/bin/h5repack $(STAGING)/$(_NAME)/bin/
+	cp -aL $(_HDF5)/include/H5*.h $(_HDF5)/include/hdf5*.h $(STAGING)/$(_NAME)/include/
+	find $(_HDF5)/lib \( -name 'libhdf5*' -o -name 'libsz.*' \) -exec cp -aL {} $(STAGING)/$(_NAME)/lib/ \;
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)
 endif

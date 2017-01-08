@@ -59,7 +59,7 @@ $(PREFIX)/var/pkg/$(_NAME):
 	mkdir -p $(STAGING)/$(_NAME)/include
 	mkdir -p $(STAGING)/$(_NAME)/lib
 	mkdir -p $(STAGING)/$(_NAME)/share
-	cp -a $(_NCURSES)/include/ncurses $(STAGING)/$(_NAME)/include/
+	cp -aL $(_NCURSES)/include/ncurses $(STAGING)/$(_NAME)/include/
 	find $(_NCURSES)/lib -maxdepth 1 \
              \( -name 'libcurse*$(DYLIB)*'  \
              -o -name 'libform*$(DYLIB)*'   \
@@ -67,8 +67,8 @@ $(PREFIX)/var/pkg/$(_NAME):
              -o -name 'libncurse*$(DYLIB)*' \
              -o -name 'libpanel*$(DYLIB)*'  \
              -o -name 'terminfo'            \
-             \) -exec cp -a {} $(STAGING)/$(_NAME)/lib/ \;
-	cp -a $(_NCURSES)/share/terminfo $(STAGING)/$(_NAME)/share/
+             \) -exec cp -aL {} $(STAGING)/$(_NAME)/lib/ \;
+	cp -aL $(_NCURSES)/share/terminfo $(STAGING)/$(_NAME)/share/
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
 endif
