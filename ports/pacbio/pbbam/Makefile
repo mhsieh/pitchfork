@@ -11,6 +11,7 @@ $(_NAME)_VERSION ?= HEAD
 _REVISION         = $(shell cd $(_WRKSRC) && $(GIT) rev-parse --short $($(_NAME)_VERSION) || true)
 
 # Local works
+ifeq ($(origin HAVE_PBBAM),undefined)
 do-fetch: $(_WRKSRC)
 $(_WRKSRC):
 ifeq ($(wildcard $($(_NAME)_REPO)),)
@@ -19,8 +20,6 @@ ifeq ($(wildcard $($(_NAME)_REPO)),)
 else
 	ln -sfn $($(_NAME)_REPO) $(_WRKSRC)
 endif
-CPPFLAGS+= -D_GNU_SOURCE
-export CPPFLAGS
 do-config: $(_WRKSRC)/build/Makefile
 $(_WRKSRC)/build/Makefile: | do-fetch
 	mkdir -p $(_WRKSRC)/build
@@ -46,7 +45,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	cd $(_WRKSRC) && tar cf - include | tar xf - -C $(STAGING)/$(_NAME)
 	cd $(STAGING)/$(_NAME) && tar cf - bin lib include | tar xf - -C $(PREFIX)
 	cd $(STAGING)/$(_NAME) && find bin lib include ! -type d > $@
-	@echo "# $(_REVISION)" >> $@ 
+	@echo "# $(_REVISION)" >> $@
 do-clean:
 	$(MAKE) -C $(_WRKSRC)/build clean
 do-distclean:
@@ -55,3 +54,13 @@ do-distclean:
 do-flush:
 	rm -rf $(_WRKSRC)
 	rm -rf $(STAGING)/$(_NAME)
+else
+do-install: $(PREFIX)/var/pkg/$(_NAME)
+$(PREFIX)/var/pkg/$(_NAME):
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p $(STAGING)/$(_NAME)
+	cd $(HAVE_PBBAM) && tar cf - lib/libpbbam* include/pbbam | tar xf - -C $(STAGING)/$(_NAME)
+	cd $(STAGING)/$(_NAME) && tar cf - lib include | tar xf - -C $(PREFIX)
+	cd $(STAGING)/$(_NAME) && find lib include ! -type d > $@
+	@echo "# $(HAVE_PBBAM)" >> $@
+endif
