@@ -53,7 +53,7 @@ $(_WRKSRC)/lib/libncurses.$(DYLIB): | do-config
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
 	rm -rf $(STAGING)/$(_NAME)
-	$(SED) -i -e "s|$(PREFIX)|$(STAGING)/$(_NAME)|g" $(STAGING)/$(_NAME)/misc/run_tic.sh
+	$(SED) -i -e "s|$(PREFIX)|$(STAGING)/$(_NAME)|g" $(_WRKSRC)/misc/run_tic.sh
 	$(MAKE) -C $(_WRKSRC) prefix=$(STAGING)/$(_NAME) install >& install.log || $(PFHOME)/bin/diewith install.log
 	if [ -d $(STAGING)/$(_NAME)/lib64 ]; then \
            ln -s libncurses.$(DYLIB) $(STAGING)/$(_NAME)/lib64/libcurses.$(DYLIB); \
