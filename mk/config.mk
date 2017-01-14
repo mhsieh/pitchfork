@@ -53,7 +53,7 @@ CFLAGS    ?= -fPIC -I$(PREFIX)/include
 LDFLAGS   ?= -L$(PREFIX)/lib
 else ifeq ($(shell echo $(CC)|grep gcc>&/dev/null&&echo yes||true),yes)
 CFLAGS    ?= -fPIC -I$(PREFIX)/include -D_GNU_SOURCE
-LDFLAGS   ?= -L$(PREFIX)/lib -L$(PREFIX)/lib64 -static-libstdc++
+LDFLAGS   ?= -L$(PREFIX)/lib -L$(PREFIX)/lib64 -static-libstdc++ -static-libgcc
 else
 CFLAGS    ?= -fPIC -I$(PREFIX)/include
 LDFLAGS   ?= -L$(PREFIX)/lib -L$(PREFIX)/lib64
