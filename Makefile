@@ -192,20 +192,10 @@ else
 openblas:
 	$(MAKE) -C ports/thirdparty/$@ provided
 endif
-ifeq ($(origin HAVE_ZLIB),undefined)
 zlib:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
-else
-zlib:
-	$(MAKE) -C ports/thirdparty/$@ provided
-endif
-ifeq ($(origin HAVE_HDF5),undefined)
 hdf5:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
-else
-hdf5:
-	$(MAKE) -C ports/thirdparty/$@ provided
-endif
 gtest:
 	$(MAKE) -C ports/thirdparty/$@ do-install
 # gtest misses a do-clean rule.

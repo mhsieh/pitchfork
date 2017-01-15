@@ -15,6 +15,22 @@ export LDFLAGS
 endif
 
 # Local works
+ifneq ($(origin HAVE_HDF5),undefined)
+_HDF5 = $(shell ../../../bin/checkHDF5 $(HAVE_HDF5))
+_NAME = hdf5
+do-install:
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p $(STAGING)/$(_NAME)/include
+	mkdir -p $(STAGING)/$(_NAME)/lib
+	mkdir -p $(STAGING)/$(_NAME)/bin
+	cp -aL $(_HDF5)/bin/h5ls     $(STAGING)/$(_NAME)/bin/
+	cp -aL $(_HDF5)/bin/h5dump   $(STAGING)/$(_NAME)/bin/
+	cp -aL $(_HDF5)/bin/h5repack $(STAGING)/$(_NAME)/bin/
+	cp -aL $(_HDF5)/include/H5*.h $(_HDF5)/include/hdf5*.h $(STAGING)/$(_NAME)/include/
+	find $(_HDF5)/lib \( -name 'libhdf5*' -o -name 'libsz.*' \) -exec cp -aL {} $(STAGING)/$(_NAME)/lib/ \;
+	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
+	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)
+else
 do-fetch: $(_FILE)
 $(_FILE):
 	$(PFHOME)/bin/pitchfork fetch --url $(_URL)/$@
@@ -35,6 +51,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	$(MAKE) -C $(_WRKSRC) install >& install.log || $(PFHOME)/bin/diewith install.log
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+endif
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean
 	rm -f build.log install.log
@@ -45,19 +62,3 @@ do-distclean:
 do-flush:
 	rm -rf $(_WRKSRC) || true
 
-ifneq ($(origin HAVE_HDF5),undefined)
-_HDF5 = $(shell ../../../bin/checkHDF5 $(HAVE_HDF5))
-_NAME = hdf5
-provided:
-	rm -rf $(STAGING)/$(_NAME)
-	mkdir -p $(STAGING)/$(_NAME)/include
-	mkdir -p $(STAGING)/$(_NAME)/lib
-	mkdir -p $(STAGING)/$(_NAME)/bin
-	cp -aL $(_HDF5)/bin/h5ls     $(STAGING)/$(_NAME)/bin/
-	cp -aL $(_HDF5)/bin/h5dump   $(STAGING)/$(_NAME)/bin/
-	cp -aL $(_HDF5)/bin/h5repack $(STAGING)/$(_NAME)/bin/
-	cp -aL $(_HDF5)/include/H5*.h $(_HDF5)/include/hdf5*.h $(STAGING)/$(_NAME)/include/
-	find $(_HDF5)/lib \( -name 'libhdf5*' -o -name 'libsz.*' \) -exec cp -aL {} $(STAGING)/$(_NAME)/lib/ \;
-	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
-	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)
-endif
