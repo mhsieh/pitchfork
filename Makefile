@@ -202,13 +202,8 @@ gtest:
 gmock:
 	$(MAKE) -C ports/thirdparty/$@ do-install
 # gmock misses a do-clean rule.
-ifeq ($(origin HAVE_BOOST),undefined)
 boost:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
-else
-boost:
-	$(MAKE) -C ports/thirdparty/$@ provided
-endif
 samtools:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 bamtools:

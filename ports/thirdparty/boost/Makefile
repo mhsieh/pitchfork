@@ -12,6 +12,15 @@ CFLAGS  += -static-libstc++
 export CFLAGS
 
 # Local works
+ifneq ($(origin HAVE_BOOST),undefined)
+_BOOST = $(shell ../../../bin/checkBOOST $(HAVE_BOOST))
+_NAME  = boost
+do-install:
+	ln -fs $(_BOOST)/include/boost $(PREFIX)/include/
+	ln -fs $(_BOOST)/lib/libboost* $(PREFIX)/lib/
+	echo include/boost > $(PREFIX)/var/pkg/$(_NAME)
+	cd $(PREFIX) && find lib -name 'libbost*' >> $(PREFIX)/var/pkg/$(_NAME)
+else
 do-fetch: $(_FILE)
 $(_FILE):
 	$(PFHOME)/bin/pitchfork fetch --url $(_URL)/$@
@@ -19,14 +28,12 @@ do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
 	mkdir -p $(_WRKSRC)
 	tar zxf $(_FILE) --strip=1 -C $(_WRKSRC)
-
 do-config: $(_WRKSRC)/project-config.jam
 $(_WRKSRC)/project-config.jam: | do-extract
 	(cd $(_WRKSRC) \
          && ./bootstrap.sh --prefix=$(PREFIX) \
                            --with-libraries=system,program_options,iostreams \
         ) >& config.log || $(PFHOME)/bin/diewith config.log
-
 do-build: $(STAGING)/$(_NAME)/lib/libboost_system.a
 $(STAGING)/$(_NAME)/lib/libboost_system.a: | do-config
 	(cd $(_WRKSRC) && \
@@ -34,6 +41,13 @@ $(STAGING)/$(_NAME)/lib/libboost_system.a: | do-config
          ./bjam -s NO_BZIP2=1 \
                 --stagedir=$(STAGING)/$(_NAME) \
                 stage) >& build.log || $(PFHOME)/bin/diewith build.log
+do-install: $(PREFIX)/var/pkg/$(_NAME)
+$(PREFIX)/var/pkg/$(_NAME): | do-build
+	mkdir -p $(STAGING)/$(_NAME)/include
+	cd $(_WRKSRC) && tar cf - boost | tar xf - -C $(STAGING)/$(_NAME)/include
+	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
+	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+endif
 do-clean:
 	rm -f build.log
 	cd $(_WRKSRC) && ./bjam --clean
@@ -41,22 +55,5 @@ do-clean:
 do-distclean:
 	rm -f config.log $(_WRKSRC)/bootstrap.log
 	cd $(_WRKSRC) && rm -rf bin.v2 project-config.jam b2 bjam
-
-do-install: $(PREFIX)/var/pkg/$(_NAME)
-$(PREFIX)/var/pkg/$(_NAME): | do-build
-	mkdir -p $(STAGING)/$(_NAME)/include
-	cd $(_WRKSRC) && tar cf - boost | tar xf - -C $(STAGING)/$(_NAME)/include
-	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
-	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
 do-flush:
 	rm -rf $(_WRKSRC) || true
-
-ifneq ($(origin HAVE_BOOST),undefined)
-_BOOST = $(shell ../../../bin/checkBOOST $(HAVE_BOOST))
-_NAME  = boost
-provided:
-	ln -fs $(_BOOST)/include/boost $(PREFIX)/include/
-	ln -fs $(_BOOST)/lib/libboost* $(PREFIX)/lib/
-	echo include/boost > $(PREFIX)/var/pkg/$(_NAME)
-	cd $(PREFIX) && find lib -name 'libbost*' >> $(PREFIX)/var/pkg/$(_NAME)
-endif
