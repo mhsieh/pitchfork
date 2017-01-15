@@ -7,6 +7,19 @@ _WRKSRC = $(WORKDIR)/$(_NAME)
 _FILE   = $(_NAME).tar.bz2
 
 # Local works
+ifneq ($(origin HAVE_SAMTOOLS),undefined)
+ifeq ($(wildcard $(HAVE_SAMTOOLS)),)
+    $(error HAVE_SAMTOOLS not found)
+endif
+_NAME     = samtools
+do-install: $(PREFIX)/var/pkg/$(_NAME)
+$(PREFIX)/var/pkg/$(_NAME):
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p $(STAGING)/$(_NAME)/bin
+	mkdir -p $(STAGING)/$(_NAME)/share/man/man1
+	cp -aL $(HAVE_SAMTOOLS)/bin/samtools $(STAGING)/$(_NAME)/bin/
+	cp -aL $(HAVE_SAMTOOLS)/share/man/man1/samtools.1 $(STAGING)/$(_NAME)/share/man/man1/
+else
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
 	tar jxf $(_FILE) -C $(WORKDIR)
@@ -31,6 +44,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	$(MAKE) -C $(_WRKSRC) prefix=$(STAGING)/$(_NAME) install >& install.log || $(PFHOME)/bin/diewith install.log
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+endif
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean
 	rm -f build.log install.log
