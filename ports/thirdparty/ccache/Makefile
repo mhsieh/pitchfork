@@ -12,6 +12,21 @@ export LDFLAGS
 endif
 
 # Local works
+ifneq ($(origin HAVE_CCACHE),undefined)
+_CCACHE = $(shell ../../../bin/checkCCACHE $(HAVE_CCACHE))
+_NAME   = ccache
+do-install:
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p $(STAGING)/$(_NAME)/bin
+	cd $(STAGING)/$(_NAME)/bin && ln -sfn $(_CCACHE) ccache
+	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache `basename $(CC)`
+	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache `basename $(CXX)`
+	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache `basename $(FC)`
+	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache cpp
+	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache CC
+	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
+	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)
+else
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
 	tar zxf $(_FILE) -C $(WORKDIR)
@@ -35,6 +50,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache CC
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+endif
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean
 	rm -f build.log install.log
@@ -44,18 +60,3 @@ do-distclean:
 	rm -f $(_WRKSRC)/config.log config.log
 do-flush:
 	rm -rf $(_WRKSRC) || true
-ifneq ($(origin HAVE_CCACHE),undefined)
-_CCACHE = $(shell ../../../bin/checkCCACHE $(HAVE_CCACHE))
-_NAME   = ccache
-provided:
-	rm -rf $(STAGING)/$(_NAME)
-	mkdir -p $(STAGING)/$(_NAME)/bin
-	cd $(STAGING)/$(_NAME)/bin && ln -sfn $(_CCACHE) ccache
-	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache `basename $(CC)`
-	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache `basename $(CXX)`
-	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache `basename $(FC)`
-	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache cpp
-	cd $(STAGING)/$(_NAME)/bin && ln -sfn ccache CC
-	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
-	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)
-endif

@@ -165,12 +165,9 @@ world: \
 # rules
 ifeq ($(origin USE_CCACHE),undefined)
 ccache: ;
-else ifeq ($(origin HAVE_CCACHE),undefined)
-ccache:
-	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 else
 ccache:
-	$(MAKE) -C ports/thirdparty/$@ provided
+	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 endif
 ifeq ($(OPSYS),Darwin)
 HAVE_ZLIB ?=
