@@ -5,9 +5,6 @@ _NAME             = ssw_lib
 $(_NAME)_REPO     = git://github.com/mengyao/Complete-Striped-Smith-Waterman-Library
 _WRKSRC           = $(WORKDIR)/$(_NAME)
 $(_NAME)_VERSION  = a9beb7e4c67824538e15fd781002983d2b333261
-ifneq ($(OPSYS),Darwin)
-LDFLAGS          += -static-libgcc -static-libstdc++
-endif
 
 # Local works
 do-fetch: $(_WRKSRC)

@@ -7,33 +7,11 @@ _FILE   = $(_NAME).tar.gz
 _WRKSRC = $(WORKDIR)/$(_NAME)
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'\$$\$$ORIGIN/../lib'
-LDFLAGS += -static-libgcc
 export LDFLAGS
 endif
 
 # Local works
-ifneq ($(origin HAVE_NCURSES),undefined)
-_NCURSES := $(shell ../../../bin/checkNCURSES $(HAVE_NCURSES))
-_NAME     = ncurses
-do-install: $(PREFIX)/var/pkg/$(_NAME)
-$(PREFIX)/var/pkg/$(_NAME):
-	rm -rf $(STAGING)/$(_NAME)
-	mkdir -p $(STAGING)/$(_NAME)/include
-	mkdir -p $(STAGING)/$(_NAME)/lib
-	mkdir -p $(STAGING)/$(_NAME)/share
-	cp -aL $(_NCURSES)/include/ncurses $(STAGING)/$(_NAME)/include/
-	find $(_NCURSES)/lib -maxdepth 1 \
-             \( -name 'libcurse*$(DYLIB)*'  \
-             -o -name 'libform*$(DYLIB)*'   \
-             -o -name 'libmenu*$(DYLIB)*'   \
-             -o -name 'libncurse*$(DYLIB)*' \
-             -o -name 'libpanel*$(DYLIB)*'  \
-             -o -name 'terminfo'            \
-             \) -exec cp -aL {} $(STAGING)/$(_NAME)/lib/ \;
-	cp -aL $(_NCURSES)/share/terminfo $(STAGING)/$(_NAME)/share/
-	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
-	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
-else
+ifeq ($(origin HAVE_NCURSES),undefined)
 do-fetch: $(_FILE)
 $(_FILE):
 	$(PFHOME)/bin/pitchfork fetch --url $(_URL)/$@
@@ -64,6 +42,27 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
         else \
            exit 1; \
         fi
+	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
+	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+else
+_NCURSES := $(shell ../../../bin/checkNCURSES $(HAVE_NCURSES))
+_NAME     = ncurses
+do-install: $(PREFIX)/var/pkg/$(_NAME)
+$(PREFIX)/var/pkg/$(_NAME):
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p $(STAGING)/$(_NAME)/include
+	mkdir -p $(STAGING)/$(_NAME)/lib
+	mkdir -p $(STAGING)/$(_NAME)/share
+	cp -aL $(_NCURSES)/include/ncurses $(STAGING)/$(_NAME)/include/
+	find $(_NCURSES)/lib -maxdepth 1 \
+             \( -name 'libcurse*$(DYLIB)*'  \
+             -o -name 'libform*$(DYLIB)*'   \
+             -o -name 'libmenu*$(DYLIB)*'   \
+             -o -name 'libncurse*$(DYLIB)*' \
+             -o -name 'libpanel*$(DYLIB)*'  \
+             -o -name 'terminfo'            \
+             \) -exec cp -aL {} $(STAGING)/$(_NAME)/lib/ \;
+	cp -aL $(_NCURSES)/share/terminfo $(STAGING)/$(_NAME)/share/
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
 endif

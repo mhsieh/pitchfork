@@ -7,7 +7,6 @@ _WRKSRC = $(WORKDIR)/$(_NAME)
 _FILE   = 0.1.20.tar.gz
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'\$$\$$ORIGIN/../lib'
-CFLAGS += -static-libgcc
 endif
 
 # Local works

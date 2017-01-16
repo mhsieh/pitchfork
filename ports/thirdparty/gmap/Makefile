@@ -7,7 +7,6 @@ _FILE   = gmap-gsnap-2016-11-07.tar.gz
 _WRKSRC = $(WORKDIR)/$(_NAME)
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'$$\$$\$$$$ORIGIN/../lib'
-LDFLAGS += -static-libgcc
 export LDFLAGS
 endif
 

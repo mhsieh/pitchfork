@@ -8,19 +8,9 @@ _NAME    = boost-1.60.0
 _URL     = https://prdownloads.sourceforge.net/boost
 _FILE    = boost_1_60_0.tar.gz
 _WRKSRC  = $(WORKDIR)/$(_NAME)
-CFLAGS  += -static-libstc++
-export CFLAGS
 
 # Local works
-ifneq ($(origin HAVE_BOOST),undefined)
-_BOOST = $(shell ../../../bin/checkBOOST $(HAVE_BOOST))
-_NAME  = boost
-do-install:
-	ln -fs $(_BOOST)/include/boost $(PREFIX)/include/
-	ln -fs $(_BOOST)/lib/libboost* $(PREFIX)/lib/
-	echo include/boost > $(PREFIX)/var/pkg/$(_NAME)
-	cd $(PREFIX) && find lib -name 'libbost*' >> $(PREFIX)/var/pkg/$(_NAME)
-else
+ifeq ($(origin HAVE_BOOST),undefined)
 do-fetch: $(_FILE)
 $(_FILE):
 	$(PFHOME)/bin/pitchfork fetch --url $(_URL)/$@
@@ -47,6 +37,14 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	cd $(_WRKSRC) && tar cf - boost | tar xf - -C $(STAGING)/$(_NAME)/include
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+else
+_BOOST = $(shell ../../../bin/checkBOOST $(HAVE_BOOST))
+_NAME  = boost
+do-install:
+	ln -fs $(_BOOST)/include/boost $(PREFIX)/include/
+	ln -fs $(_BOOST)/lib/libboost* $(PREFIX)/lib/
+	echo include/boost > $(PREFIX)/var/pkg/$(_NAME)
+	cd $(PREFIX) && find lib -name 'libbost*' >> $(PREFIX)/var/pkg/$(_NAME)
 endif
 do-clean:
 	rm -f build.log

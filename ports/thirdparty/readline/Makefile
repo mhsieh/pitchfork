@@ -6,7 +6,6 @@ _URL    = ftp://ftp.gnu.org/gnu/readline
 _WRKSRC = $(WORKDIR)/$(_NAME)
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'\$$\$$ORIGIN/../lib'
-LDFLAGS += -static-libgcc
 export LDFLAGS
 endif
 _FILE   = $(_NAME).tar.gz

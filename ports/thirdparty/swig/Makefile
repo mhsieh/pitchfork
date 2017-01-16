@@ -7,7 +7,6 @@ _WRKSRC = $(WORKDIR)/$(_NAME)
 _FILE   = $(_NAME).tar.gz
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'\$$\$$ORIGIN/../lib',-rpath,'$$\$$\$$$$ORIGIN/../lib'
-LDFLAGS += -static-libgcc -static-libstdc++
 export LDFLAGS
 endif
 
