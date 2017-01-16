@@ -10,6 +10,7 @@ _WRKSRC = $(WORKDIR)/$(_NAME)
 _FILE   = v0.2.18.tar.gz
 
 # Local works
+ifeq ($(origin HAVE_OPENBLAS),undefined)
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
 	tar zxf $(_FILE) -C $(WORKDIR)
@@ -25,6 +26,19 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	$(MAKE) -j1 -C $(_WRKSRC) PREFIX=$(STAGING)/$(_NAME) install >& install.log || $(PFHOME)/bin/diewith install.log
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+else
+ifeq ($(wildcard $(_OPENBLAS)/libopenblas*),)
+$(error $(_OPENBLAS)/libopenblas* not found)
+endif
+_OPENBLAS = $(HAVE_OPENBLAS)
+_NAME     = OpenBLAS
+do-install:
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p $(STAGING)/$(_NAME)/lib
+	rsync -avx $(_OPENBLAS)/libopenblas*          $(STAGING)/$(_NAME)/lib/
+	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
+	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)
+endif
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean
 	rm -f build.log install.log
@@ -33,17 +47,3 @@ do-flush:
 	rm -rf $(_WRKSRC) || true
 do-distclean: do-flush
 
-ifneq ($(origin HAVE_OPENBLAS),undefined)
-_OPENBLAS = $(HAVE_OPENBLAS)
-_NAME     = OpenBLAS
-provided:
-	rm -rf $(STAGING)/$(_NAME)
-	mkdir -p $(STAGING)/$(_NAME)/lib
-ifeq ($(wildcard $(_OPENBLAS)/libopenblas*),)
-	rsync -avx $(_OPENBLAS)/lib/libopenblas*      $(STAGING)/$(_NAME)/lib/
-else
-	rsync -avx $(_OPENBLAS)/libopenblas*          $(STAGING)/$(_NAME)/lib/
-endif
-	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
-	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $(PREFIX)/var/pkg/$(_NAME)
-endif

@@ -185,13 +185,8 @@ tcl:
 libpng:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 endif
-ifeq ($(origin HAVE_OPENBLAS),undefined)
 openblas:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
-else
-openblas:
-	$(MAKE) -C ports/thirdparty/$@ provided
-endif
 zlib:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 hdf5:
