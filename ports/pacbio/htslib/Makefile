@@ -12,8 +12,8 @@ export LDFLAGS
 endif
 
 # Local works
-do-fetch: $(_WRKSRC)
 ifeq ($(origin HAVE_HTSLIB),undefined)
+do-fetch: $(_WRKSRC)
 $(_WRKSRC):
 ifeq ($(wildcard $($(_NAME)_REPO)),)
 	$(GIT) clone $($(_NAME)_REPO) $@
@@ -43,8 +43,8 @@ $(PREFIX)/var/pkg/$(_NAME):
 	rm -rf $(STAGING)/$(_NAME)
 	mkdir -p $(STAGING)/$(_NAME)/src/htslib
 	cd $(HAVE_HTSLIB) && tar cf - lib/libhts.* include/htslib include/cram | tar xf - -C $(STAGING)/$(_NAME)/src/htslib
-	cd $(STAGING)/$(_NAME) && tar cf - lib include | tar xf - -C $(PREFIX)
-	cd $(STAGING)/$(_NAME) && find lib include ! -type d > $@
+	cd $(STAGING)/$(_NAME) && tar cf - src/htslib | tar xf - -C $(PREFIX)
+	cd $(STAGING)/$(_NAME) && find src/htslib ! -type d > $@
 	@echo "# $(HAVE_HTSLIB)" >> $@
 endif
 do-clean:
