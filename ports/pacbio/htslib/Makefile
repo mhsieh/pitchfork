@@ -13,6 +13,7 @@ endif
 
 # Local works
 do-fetch: $(_WRKSRC)
+ifeq ($(origin HAVE_HTSLIB),undefined)
 $(_WRKSRC):
 ifeq ($(wildcard $($(_NAME)_REPO)),)
 	$(GIT) clone $($(_NAME)_REPO) $@
@@ -36,6 +37,16 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	cd $(PREFIX)  && find src/htslib ! -type d > $@
 	@echo "# $(_REVISION)" >> $@ 
 #this thing cannot be installed to prefix/lib or it will kill pysam/samtools
+else
+do-install: $(PREFIX)/var/pkg/$(_NAME)
+$(PREFIX)/var/pkg/$(_NAME):
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p $(STAGING)/$(_NAME)/src/htslib
+	cd $(HAVE_HTSLIB) && tar cf - lib/libhts.* include/htslib include/cram | tar xf - -C $(STAGING)/$(_NAME)/src/htslib
+	cd $(STAGING)/$(_NAME) && tar cf - lib include | tar xf - -C $(PREFIX)
+	cd $(STAGING)/$(_NAME) && find lib include ! -type d > $@
+	@echo "# $(HAVE_HTSLIB)" >> $@
+endif
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean
 do-distclean:
