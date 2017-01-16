@@ -27,8 +27,8 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
 else
-ifeq ($(wildcard $(_OPENBLAS)/libopenblas*),)
-$(error $(_OPENBLAS)/libopenblas* not found)
+ifeq ($(wildcard $(HAVE_OPENBLAS)/lib/libopenblas*),)
+$(error $(HAVE_OPENBLAS)/lib/libopenblas* not found)
 endif
 _OPENBLAS = $(HAVE_OPENBLAS)
 _NAME     = OpenBLAS
