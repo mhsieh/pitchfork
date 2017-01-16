@@ -32,8 +32,8 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
 else
-ifeq ($(wildcard $(HAVE_LIBPNG)/libpng*),)
-    $(error $(HAVE_LIBPNG)/libpng* not found)
+ifeq ($(wildcard $(HAVE_LIBPNG)/lib/libpng*),)
+    $(error $(HAVE_LIBPNG)/lib/libpng* not found)
 endif
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME):
@@ -51,6 +51,8 @@ $(PREFIX)/var/pkg/$(_NAME):
 	cp -aL $(HAVE_LIBPNG)/lib/pkgconfig/libpng* $(STAGING)/$(_NAME)/lib/pkgconfig
 	cp -aL $(HAVE_LIBPNG)/share/man/man3/libpng* $(STAGING)/$(_NAME)/share/man/man3/
 	cp -aL $(HAVE_LIBPNG)/share/man/man5/png* $(STAGING)/$(_NAME)/share/man/man5/
+	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
+	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
 endif
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean

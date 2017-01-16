@@ -8,6 +8,7 @@ _CFLAGS = $(CFLAGS)
 _FILE   = $(_NAME).tar.gz
 
 # Local works
+ifeq ($(origin HAVE_LIBSSL),undefined)
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
 	tar zxf $(_FILE) -C $(WORKDIR)
@@ -28,6 +29,31 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	$(PERL) -pi -e 's[$(STAGING)/$(_NAME)][$(PREFIX)]g' $(STAGING)/$(_NAME)/lib/pkgconfig/*.pc
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+else
+ifeq ($(wildcard $(HAVE_LIBSSL)/lib/libssl*),)
+    $(error $(HAVE_LIBSSL)/lib/libssl* not found)
+endif
+do-install: $(PREFIX)/var/pkg/$(_NAME)
+$(PREFIX)/var/pkg/$(_NAME):
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p \
+                 $(STAGING)/$(_NAME)/share/man/man1 \
+                 $(STAGING)/$(_NAME)/include \
+                 $(STAGING)/$(_NAME)/lib/pkgconfig \
+                 $(STAGING)/$(_NAME)/etc
+	cp -aL $(HAVE_LIBSSL)/lib/pkgconfig/libcrypto.pc $(STAGING)/$(_NAME)/lib/pkgconfig/
+	cp -aL $(HAVE_LIBSSL)/lib/pkgconfig/*ssl.pc      $(STAGING)/$(_NAME)/lib/pkgconfig/
+	cp -aL $(HAVE_LIBSSL)/lib/pkgconfig/libtls.pc    $(STAGING)/$(_NAME)/lib/pkgconfig/
+	cp -aL $(HAVE_LIBSSL)/lib/libcrypto*             $(STAGING)/$(_NAME)/lib/
+	cp -aL $(HAVE_LIBSSL)/lib/libssl*                $(STAGING)/$(_NAME)/lib/
+	cp -aL $(HAVE_LIBSSL)/lib/libtls*                $(STAGING)/$(_NAME)/lib/
+	cp -aL $(HAVE_LIBSSL)/etc/ssl                    $(STAGING)/$(_NAME)/etc/
+	cp -aL $(HAVE_LIBSSL)/include/openssl            $(STAGING)/$(_NAME)/include/
+	cp -aL $(HAVE_LIBSSL)/include/tls.h              $(STAGING)/$(_NAME)/include/
+	cp -aL $(HAVE_LIBSSL)/share/man/man1/openssl.1   $(STAGING)/$(_NAME)/share/man/man1/
+	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
+	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+endif
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean
 	rm -f build.log install.log
