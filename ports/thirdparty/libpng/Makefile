@@ -7,11 +7,11 @@ _WRKSRC = $(WORKDIR)/$(_NAME)
 _FILE   = $(_NAME).tar.gz
 ifneq ($(OPSYS),Darwin)
 LDFLAGS += -Wl,-rpath,'$$\$$\$$$$ORIGIN/../lib'
-CFLAGS += -static-libgcc
 endif
 _CFLAGS = $(CFLAGS)
 
 # Local works
+ifeq ($(origin HAVE_LIBPNG),undefined)
 do-extract: $(_WRKSRC)
 $(_WRKSRC): | do-fetch
 	tar zxf $(_FILE) -C $(WORKDIR)
@@ -31,6 +31,27 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
 	$(MAKE) -C $(_WRKSRC) prefix=$(STAGING)/$(_NAME) install >& install.log || $(PFHOME)/bin/diewith install.log
 	cd $(STAGING)/$(_NAME) && tar cf - * | tar xf - -C $(PREFIX)
 	find $(STAGING)/$(_NAME) ! -type d|awk -F '$(STAGING)/$(_NAME)/' '{print $$2}' > $@
+else
+ifeq ($(wildcard $(HAVE_LIBPNG)/libpng*),)
+    $(error $(HAVE_LIBPNG)/libpng* not found)
+endif
+do-install: $(PREFIX)/var/pkg/$(_NAME)
+$(PREFIX)/var/pkg/$(_NAME):
+	rm -rf $(STAGING)/$(_NAME)
+	mkdir -p $(STAGING)/$(_NAME)/bin \
+                 $(STAGING)/$(_NAME)/share/man/man3 \
+                 $(STAGING)/$(_NAME)/share/man/man5 \
+                 $(STAGING)/$(_NAME)/include \
+                 $(STAGING)/$(_NAME)/lib/pkgconfig
+	cp -aL $(HAVE_LIBPNG)/bin/libpng* $(STAGING)/$(_NAME)/bin/
+	cp -aL $(HAVE_LIBPNG)/bin/png* $(STAGING)/$(_NAME)/bin/
+	cp -aL $(HAVE_LIBPNG)/include/libpng* $(STAGING)/$(_NAME)/include/
+	cp -aL $(HAVE_LIBPNG)/include/png* $(STAGING)/$(_NAME)/include/
+	cp -aL $(HAVE_LIBPNG)/lib/libpng* $(STAGING)/$(_NAME)/lib/
+	cp -aL $(HAVE_LIBPNG)/lib/pkgconfig/libpng* $(STAGING)/$(_NAME)/lib/pkgconfig
+	cp -aL $(HAVE_LIBPNG)/share/man/man3/libpng* $(STAGING)/$(_NAME)/share/man/man3/
+	cp -aL $(HAVE_LIBPNG)/share/man/man5/png* $(STAGING)/$(_NAME)/share/man/man5/
+endif
 do-clean:
 	$(MAKE) -C $(_WRKSRC) clean
 	rm -f build.log install.log
