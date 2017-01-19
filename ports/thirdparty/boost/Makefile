@@ -44,7 +44,7 @@ _NAME  = boost
 do-install:
 	ln -fsn $(_BOOST)/include/boost $(PREFIX)/include/
 	ln -fsn $(_BOOST)/lib/libboost* $(PREFIX)/lib/
-	[ -e $$( dirname $@ ) ] || mkdir -p $$( dirname $@ )
+	[ -e $(PREFIX)/var/pkg ] || mkdir -p $(PREFIX)/var/pkg
 	echo include/boost > $(PREFIX)/var/pkg/$(_NAME)
 	cd $(PREFIX) && find lib -name 'libbost*' >> $(PREFIX)/var/pkg/$(_NAME)
 endif
