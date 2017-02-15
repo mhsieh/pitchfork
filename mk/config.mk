@@ -53,17 +53,19 @@ endif
 ARCH      := $(shell $(UNAME) -m)
 OPSYS     := $(shell $(UNAME) -s)
 
+CFLAGS  =
+LDFLAGS =
 ifeq ($(OPSYS),Darwin)
-CFLAGS    ?= -fPIC -I$(PREFIX)/include
-LDFLAGS   ?= -L$(PREFIX)/lib
+CFLAGS    += -fPIC -I$(PREFIX)/include
+LDFLAGS   += -L$(PREFIX)/lib
 else ifeq ($(shell echo $(CC)|grep gcc>&/dev/null&&echo yes||true),yes)
-CFLAGS    ?= -fPIC -I$(PREFIX)/include -D_GNU_SOURCE
-LDFLAGS   ?= -L$(PREFIX)/lib -L$(PREFIX)/lib64 -static-libstdc++
+CFLAGS    += -fPIC -I$(PREFIX)/include -D_GNU_SOURCE
+LDFLAGS   += -L$(PREFIX)/lib -L$(PREFIX)/lib64 -static-libstdc++
 else
-CFLAGS    ?= -fPIC -I$(PREFIX)/include
-LDFLAGS   ?= -L$(PREFIX)/lib -L$(PREFIX)/lib64
+CFLAGS    += -fPIC -I$(PREFIX)/include
+LDFLAGS   += -L$(PREFIX)/lib -L$(PREFIX)/lib64
 endif
-CXXFLAGS  ?= $(CFLAGS)
+CXXFLAGS  += $(CFLAGS)
 
 
 BOOST_ROOT = $(PREFIX)
