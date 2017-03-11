@@ -20,7 +20,7 @@ DEVOPT = -e
 endif
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-fetch
-	$(PIP) install --no-deps $(DEVOPT) $(_WRKSRC)/
+	$(PIP_INSTALL) $(DEVOPT) $(_WRKSRC)/
 	@echo pip uninstall FALCON_polish > $@
 	@echo "# $(_REVISION)" >> $@ 
 do-clean:

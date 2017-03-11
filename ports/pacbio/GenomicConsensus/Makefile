@@ -20,7 +20,7 @@ DEVOPT = -e
 endif
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-fetch
-	$(PIP) install --no-deps --verbose $(DEVOPT) $(_WRKSRC)/
+	$(PIP_INSTALL) --verbose $(DEVOPT) $(_WRKSRC)/
 	@echo pip uninstall $(_NAME) > $@
 	@echo "# $(_REVISION)" >> $@ 
 do-clean:

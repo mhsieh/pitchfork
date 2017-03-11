@@ -13,14 +13,14 @@ $(_WRKSRC):
 ifeq ($(wildcard $($(_NAME)_REPO)),)
 	$(GIT) clone $($(_NAME)_REPO) $@
 	cd $(_WRKSRC) && $(GIT) checkout $($(_NAME)_VERSION)
-DEVOPT =
+DEVOPT = -e
 else
 	ln -sfn $($(_NAME)_REPO) $(_WRKSRC)
 DEVOPT = -e
 endif
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-fetch
-	$(PIP) install --no-deps $(DEVOPT) $(_WRKSRC)/
+	$(PIP_INSTALL) $(DEVOPT) $(_WRKSRC)/
 	@echo pip uninstall $(_NAME) > $@
 	@echo "# $(_REVISION)" >> $@ 
 do-clean:

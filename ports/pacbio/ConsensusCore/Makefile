@@ -24,8 +24,8 @@ $(_WRKSRC)/make/Config.mk: | do-fetch
             --swig=$(PREFIX)/bin/swig \
             --swig-lib=$(PREFIX)/share/swig/3.0.8 \
             --boost=$(BOOST_ROOT)/include \
-            --python-include=$(PREFIX)/include/python2.7 \
-            --numpy-include=$(PREFIX)/lib/python2.7/site-packages/numpy/core/include
+            --python-include=$(shell python -c 'import sysconfig; print sysconfig.get_path("include")') \
+            --numpy-include=$(shell python -c 'import numpy; print numpy.get_include()') \
 do-build: $(_WRKSRC)/build/C++/libConsensusCore.a $(_WRKSRC)/build/Python/_ConsensusCore.so
 $(_WRKSRC)/build/C++/libConsensusCore.a: | do-config
 	$(MAKE) -C $(_WRKSRC) GXX="$(CXX) $(CXXFLAGS) $(LDFLAGS)" lib
@@ -33,7 +33,7 @@ $(_WRKSRC)/build/Python/_ConsensusCore.so: | do-config
 	$(MAKE) -C $(_WRKSRC) GXX="$(CXX) $(CXXFLAGS) $(LDFLAGS)" python
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-build
-	$(PIP) install --no-deps --install-option="--swig=$(PREFIX)/bin/swig" --install-option="--swig-lib=$(PREFIX)/share/swig/3.0.8" --install-option="--boost=$(BOOST_ROOT)/include" $(DEVOPT) $(_WRKSRC)/
+	$(PIP_INSTALL) --install-option="--swig=$(PREFIX)/bin/swig" --install-option="--swig-lib=$(PREFIX)/share/swig/3.0.8" --install-option="--boost=$(BOOST_ROOT)/include" $(DEVOPT) $(_WRKSRC)/
 	@echo pip uninstall $(_NAME) > $@
 	@echo "# $(_REVISION)" >> $@ 
 do-clean:

@@ -55,7 +55,7 @@ $(PREFIX)/var/pkg/$(_NAME): | do-build
      pbcopper_INCLUDE_DIRS=$(PREFIX)/include \
         pbcopper_LIBRARIES=$(PREFIX)/lib/libpbcopper.a \
                    VERBOSE=1 \
-        $(PIP) install --verbose --upgrade --no-deps $(DEVOPT) $(_WRKSRC)/
+        $(PIP_INSTALL) --verbose --upgrade $(DEVOPT) $(_WRKSRC)/
 	@echo pip uninstall $(_NAME) >> $@
 	@echo "# $(_REVISION)" >> $@ 
 do-clean:

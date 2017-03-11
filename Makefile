@@ -238,97 +238,97 @@ python:
 else
 python:
 	# No do-clean rule here.
-	$(MAKE) -j1 -C ports/python/virtualenv do-install
+	#$(MAKE) -j1 -C ports/python/virtualenv do-install
 endif
 pip:
 	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 
 numpy:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 cython:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 xmlbuilder:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 jsonschema:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 avro:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 requests:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 iso8601:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 jinja2:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 networkx:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pyparsing:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pydot:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 fabric:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 h5py:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 docopt:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pysam:
-	$(MAKE) --no-print-directory -s -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) --no-print-directory -s -j1 -C ports/python/$@ ${RULE}
 six:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 rdflib:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 rdfextras:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 matplotlib:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 scipy:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 traitlets:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pickleshare:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 appnope:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 decorator:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 gnureadline:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pexpect:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 ipython_genutils:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 path.py:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 ptyprocess:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 simplegeneric:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 paramiko:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 ecdsa:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pycrypto:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 isodate:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 html5lib:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 functools32:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pytz:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 python-dateutil:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 nose:
 	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 cram:
 	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 cycler:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 MarkupSafe:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 tabulate:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 CramUnit:
 	$(MAKE) -j1 -C ports/python/$@ ${RULE}
 
@@ -427,21 +427,21 @@ mash:
 ssw_lib:
 	$(MAKE) -C ports/thirdparty/$@ ${RULE}
 scikit-image:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 pillow:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 dask.array:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 toolz:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 ipython:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 biopython:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 bx-python:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 PuLP:
-	$(MAKE) -j1 -C ports/python/$@ ${RULE}
+	#$(MAKE) -j1 -C ports/python/$@ ${RULE}
 fasta2bam:
 	$(MAKE) -C ports/pacbio/$@ ${RULE}
 PacBioTestData:

@@ -20,7 +20,7 @@ DEVOPT = -e
 endif
 do-install: $(PREFIX)/var/pkg/$(_NAME)
 $(PREFIX)/var/pkg/$(_NAME): | do-fetch
-	$(PIP) install --no-deps $(DEVOPT) $(_WRKSRC)/
+	$(PIP_INSTALL) $(DEVOPT) $(_WRKSRC)/
 	rm -rf $(PREFIX)/lib/python2.7/site-packages/bin
 	install -m 755 $(_WRKSRC)/bin/copyIpdSummaryDataset.py $(PREFIX)/bin/
 	install -m 755 $(_WRKSRC)/bin/writeSummaryToCmp.py $(PREFIX)/bin/
