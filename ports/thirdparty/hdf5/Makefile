@@ -5,7 +5,7 @@ include ../../../mk/chkcxx.mk
 
 # Local variables
 _NAME   = hdf5-1.8.16
-_URL    = https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.16/src
+_URL    = https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.16/src
 _FILE   = $(_NAME).tar.gz
 _WRKSRC = $(WORKDIR)/$(_NAME)
 ifneq ($(OPSYS),Darwin)
